@@ -1,0 +1,102 @@
+.x5-m-modal-wrapper {
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: initial;
+  &.x5-m-overlay {
+    background-color: #0006;
+    z-index: 5;
+  }
+  .x5-m-loading-wrapper {
+    background-color: #0006;
+    border-radius: 10px;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  .x5-m-loading {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .x5-m-modal {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    width: 100%;
+    &.x5-m-attention {
+      animation: x5-m-shake 150ms;
+    }
+    .x5-m-header {
+      position: relative;
+      font-size: 22px;
+      border-radius: 10px 10px 0 0;
+      font-weight: bold;
+      background: #fafafa;
+      border-bottom: #eee 1px solid;
+      color: #333;
+      padding: 20px 54px 16px 24px;
+      .x5-m-close {
+        font-size: 14px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 24px;
+        color: transparent;
+        cursor: pointer;
+        text-shadow: 0 0 0 #999;
+        &:hover {
+          text-shadow: 0 0 0 #666;
+        }
+      }
+    }
+    .x5-m-content {
+      padding: 16px 24px;
+      max-height: 70vh;
+      overflow: auto;
+    }
+    .x5-m-footer {
+      background: #fbfbfb;
+      border-top: #eee 1px solid;
+      border-radius: 0 0 10px 10px;
+      text-align: end;
+      button {
+        background-color: transparent;
+        border: 0 solid #4442;
+        color: #666;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        height: 40px;
+        margin: 4px 20px 4px 0;
+        padding: 1px 6px;
+        min-width: 80px;
+        &.x5-m-ok {
+          color: dodgerblue;
+          border-color: #1e90ff80;
+          &:hover {
+            background-color: #68b1fa42;
+          }
+        }
+        &:hover {
+          border-width: 1px;
+        }
+        &:disabled {
+          color: #ccc;
+          border-width: 0;
+          cursor: unset;
+        }
+      }
+    }
+  }
+}

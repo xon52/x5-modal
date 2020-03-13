@@ -1,0 +1,36 @@
+@keyframes x5-m-shake {
+  14%,
+  70% {
+    transform: translate(-49%, -49%);
+  }
+  28%,
+  56%,
+  84% {
+    transform: translate(-49%, -51%);
+  }
+  42%,
+  98% {
+    transform: translate(-51%, -51%);
+  }
+}
+
+@keyframes x5-m-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.x5-m-fade-enter-active {
+  animation: x5-m-fade 0.2s;
+}
+.x5-m-fade-leave-active {
+  animation: x5-m-fade 0.2s reverse;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
