@@ -33,6 +33,7 @@ export default {
   }),
   methods: {
     interactive() {
+      this.$x5.openModal('interactive')
       this.$x5.openModal('interactive', {}, this.dataIn).then(val => {
         this.dataOut = val
       })

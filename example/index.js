@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Vuex from 'vuex'
-import x5Modal from '../dist'
-// import x5Modal from '../src'
+// import x5Modal from '../dist'
+import x5Modal from '../src'
 
 Vue.use(Vuex)
 const store = new Vuex.Store()

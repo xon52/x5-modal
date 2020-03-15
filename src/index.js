@@ -27,13 +27,15 @@ export default function(Vue, store) {
   const openModal = (name, options = {}, data = null) => {
     const isRegistered = !!store.getters['x5/m/allRegistered'][name]
     if (!isRegistered) return warning(`Modal '${name}' not registered.`)
-    const isOpen = !!store.getters['x5/m/allOpen'][name]
+    const isOpen = !!store.getters['x5/m/allOpen'].find(e => e.name === name)
+    // FIXME: returning null throws an error if there is a .then() chained to the openModal() call
     if (isOpen) return warning(`Modal '${name}' already open.`)
     let resolve
     const promise = new Promise(res => (resolve = res))
     store.dispatch('x5/m/open', { name, options, data, resolve })
     return promise
   }
+  // TODO: Edit modal (to add/change options and data)
   // Close Modal
   const closeModal = (name, result) => {
     if (!name) name = store.getters['x5/m/active']
