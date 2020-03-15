@@ -1,12 +1,7 @@
 <template>
   <div :style="`z-index:${zIndex}`">
     <transition-group name="x5-m-fade" mode="out-in" tag="div">
-      <component
-        v-for="m in modals"
-        :key="m.name"
-        :is="m.component"
-        :data="m.options ? m.options.data : null"
-      ></component>
+      <component v-for="m in modals" :key="m.name" :is="m.component" :data="m.data" :resolve="m.resolve"></component>
     </transition-group>
   </div>
 </template>

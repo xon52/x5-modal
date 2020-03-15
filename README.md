@@ -150,15 +150,22 @@ export default {
 | valid       | Boolean | `true`  | OK (submit button) is enabled                                     |
 | width       | Number  |  `500`  | Maximum window width                                              |
 
-:info: An additional option is available for the instance call: 'data'. Anything set there will be accessible to your
-modal component as a prop:
+## Additional Features
+
+- Using `$x5.openModal` returns a promise and is resolved with the customizable `okValue` or `cancelValue` props
+- `$x5.closeModal()` [without a name] will close the active modal
+
+### Data Prop
+
+A third 'data' parameter in the `x5.openModal(name, options, data)` function. Anything set there will be accessible to
+your modal component as a prop
 
 ```js
 // Anywhere
 export default {
   methods: {
     open() {
-      this.$x5.openModal('example', { data: 'example@example.com' })
+      this.$x5.openModal('example', {}, 'Any data')
     },
   },
 }
@@ -172,10 +179,24 @@ export default {
 }
 ```
 
-## Additional Features
+### Resolve Prop
 
-- Using `$x5.openModal` returns a promise and is resolved with the customizable `okValue` or `cancelValue` props
-- `$x5.closeModal()` [without a name] will close the active modal
+Similarly to the 'data' prop, your modal component will also have access to the resolve function of the promise made by
+`x5.openModal()`. This is really useful when you are using `keepOpen` and handling the modal closing yourself, but still
+want a value returned before the close.
+
+```js
+// ExampleModal.vue
+// ...
+export default {
+  props: ['resolve'],
+  methods: {
+    send() {
+      resolve('Message sent, but modal not closed.')
+    },
+  },
+}
+```
 
 <br>
 

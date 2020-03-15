@@ -24,12 +24,12 @@ export default function(Vue, store) {
     store.dispatch('x5/m/register', { name, component })
   }
   // Open Modal
-  const openModal = (name, options) => {
+  const openModal = (name, options = {}, data = null) => {
     const isRegistered = !!store.getters['x5/m/allRegistered'][name]
     if (!isRegistered) return warning(`Modal '${name}' not registered.`)
     let resolve
     const promise = new Promise(res => (resolve = res))
-    store.dispatch('x5/m/open', { name, options, resolve })
+    store.dispatch('x5/m/open', { name, options, data, resolve })
     return promise
   }
   // Close Modal
