@@ -2,23 +2,20 @@
   <div class="wrapper">
     <img class="logo" src="./x5-m-logo.png" width="300" />
     <h1 class="title">x5-Modal Example</h1>
-    <button class="button" @click="plain">Plain</button>
-    <button class="button" @click="noButtons">No Buttons</button>
-    <button class="button" @click="full">Full</button>
+    <button class="button" @click="$x5.openModal('plain')">Plain</button>
+    <button class="button" @click="$x5.openModal('noButtons')">No Buttons</button>
+    <button class="button" @click="$x5.openModal('full')">Full</button>
     <hr />
     <!-- Output -->
     <p>You can also customise modals from the open call itself:</p>
-    <input v-model="returnData" placeholder="Something to send" class="boxed" maxlength="20" />
+    <input v-model="dataIn" placeholder="Something to send" class="boxed" maxlength="20" />
     <button class="button" @click="interactive">Interactive</button>
     <p>
       And it returned:
-      <span class="boxed greyed">{{ interactiveOutput ? `${interactiveOutput} 😀` : 'Nothing returned 😥' }}</span>
+      <span class="boxed greyed">{{ dataOut ? `${dataOut} 😀` : 'Nothing returned 😥' }}</span>
     </p>
     <!-- Modals -->
-    <plain-modal></plain-modal>
-    <no-buttons-modal></no-buttons-modal>
-    <full-modal></full-modal>
-    <interactive-modal></interactive-modal>
+    <x5-modals></x5-modals>
   </div>
 </template>
 
@@ -30,26 +27,22 @@ import InteractiveModal from './InteractiveModal'
 
 export default {
   name: 'Example-App',
-  components: { PlainModal, NoButtonsModal, FullModal, InteractiveModal },
   data: () => ({
-    interactiveOutput: null,
-    returnData: null,
+    dataOut: null,
+    dataIn: null,
   }),
   methods: {
-    plain() {
-      this.$openModal('plain')
-    },
-    noButtons() {
-      this.$openModal('noButtons')
-    },
-    full() {
-      this.$openModal('full')
-    },
     interactive() {
-      this.$openModal('interactive', this.returnData).then(val => {
-        this.interactiveOutput = val
+      this.$x5.openModal('interactive', { data: this.dataIn }).then(val => {
+        this.dataOut = val
       })
     },
+  },
+  created() {
+    this.$x5.registerModal('full', FullModal)
+    this.$x5.registerModal('plain', PlainModal)
+    this.$x5.registerModal('noButtons', NoButtonsModal)
+    this.$x5.registerModal('interactive', InteractiveModal)
   },
 }
 </script>

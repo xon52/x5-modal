@@ -20,8 +20,8 @@
       <li><code>OKCancel</code> buttons (OK and Cancel)</li>
       <li><code>okText</code> of "Send" and <code>cancelText</code> of "Don't Send"</li>
       <li>
-        Can open other modals from an inline click command <code>@click="$openModal('plain')"</code>
-        <a @click="$openModal('plain')">here</a><br />
+        Can open other modals from an inline click command <code>@click="$x5.openModal('plain')"</code>
+        <a @click="$x5.openModal('plain')">here</a><br />
       </li>
       <li>The <code>zIndex</code> is set to "10" so it remains below the opened modal (default zIndex of "200")</li>
       <li>All modals have a <code>loading</code> attribute: <a @click="load">Try it</a></li>

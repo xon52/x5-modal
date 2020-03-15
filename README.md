@@ -33,13 +33,13 @@ new Vue({
 })
 ```
 
-<!-- This plugin uses a component to house all the magic, so it's recommended to put this near the end of your Vue app (e.g.
+This plugin uses a component to house all the magic, so it's recommended to put this near the end of your Vue app (e.g.
 bottom of your App.vue template)
 
 ```html
 <div id="app">
   ...
-  <x5-dialog></x5-dialog>
+  <x5-modals></x5-modals>
 </div>
 ```
 
@@ -47,11 +47,11 @@ bottom of your App.vue template)
 | :-------- | :----: | :-----: | :----------------------- |
 | zIndex    | Number |  `200`  | z-index style for plugin |
 
-<br> -->
+<br>
 
 # Usage
 
-## Template Modal - `<x5-modal>`
+## Step 1: Create a modal component using the `<x5-modal>` wrapper
 
 ```html
 <!-- ExampleModal.vue -->
@@ -63,63 +63,76 @@ bottom of your App.vue template)
 </template>
 ```
 
-## Including Modal
+## Step 2: Register the modal (anywhere before you need to open it)
 
-```html
-<!-- Anywhere in your App -->
-<div>
-  ...
-  <example-modal></example-modal>
-</div>
-```
+:info: This does not need to be in the same component you're calling it from - it can be anywhere
 
 ```js
+// Anywhere
 import ExampleModal from './ExampleModal.vue'
 
 export default {
-  components: {
-    ExampleModal,
+  created() {
+    this.$x5.registerModal('example', ExampleModal)
   },
 }
 ```
 
-## Opening / Closing Modal
+## Step 3: Opening / Closing Modal
 
-### From Vue method
+### From Vue method (from anywhere in your app)
+
+:info: Note that `$x5.openModal()` returns a promise and is resolved with the customizable `okValue` or `cancelValue`
+props.
 
 ```js
+// Anywhere
 export default {
   methods: {
     open() {
-      this.$openModal('example')
+      this.$x5.openModal('example')
     },
     close() {
-      this.$closeModal('example')
+      this.$x5.closeModal('example')
     },
   },
 }
 ```
 
-### From inline function
+### From inline function (from anywhere in your app)
 
 ```html
+<!-- Anywhere -->
 <template>
-  <button @click="$openModal('example')">Open</button>
-  <button @click="$closeModal('example')">Close</button>
+  <button @click="$x5.openModal('example')">Open</button>
+  <button @click="$x5.closeModal('example')">Close</button>
 </template>
 ```
 
-### Manually
+## Modal Component and Instance Properties
+
+These settings can be called as props to the `<x5-modal>` wrapper of your modal **AND** overridden as an options object
+when the modal is opened:
 
 ```html
-<!-- Wherever the modal is -->
+<!-- ExampleModal.vue -->
 <template>
-  ...
-  <example-modal :open="isOpenBoolean"></example-modal>
+  <x5-modal name="example" buttons="Cancel" :loading="isLoading" width="300px">
+    <p>An example.</p>
+  <x5-modal>
 </template>
 ```
 
-## Modal Properties - `<x5-modal>`
+```js
+// Anywhere
+export default {
+  methods: {
+    open() {
+      this.$x5.openModal('example', { width: '450px', title: 'Example Modal' })
+    },
+  },
+}
+```
 
 | Option      |  Type   | Default | Description                                                       |
 | :---------- | :-----: | :-----: | :---------------------------------------------------------------- |
@@ -137,12 +150,32 @@ export default {
 | valid       | Boolean | `true`  | OK (submit button) is enabled                                     |
 | width       | Number  |  `500`  | Maximum window width                                              |
 
+:info: An additional option is available for the instance call: 'data'. Anything set there will be accessible to your
+modal component as a prop:
+
+```js
+// Anywhere
+export default {
+  methods: {
+    open() {
+      this.$x5.openModal('example', { data: 'example@example.com' })
+    },
+  },
+}
+```
+
+```js
+// ExampleModal.vue
+// ...
+export default {
+  props: ['data'],
+}
+```
+
 ## Additional Features
 
-- Using `$openModal` returns a promise and is resolved with the customizable `okValue` or `cancelValue` props
-- `$openModal` has a second prop for instance data which can be accessed from your component using a
-  [slot property](https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots)
-- `$closeModal()` [without a name] will close the active modal
+- Using `$x5.openModal` returns a promise and is resolved with the customizable `okValue` or `cancelValue` props
+- `$x5.closeModal()` [without a name] will close the active modal
 
 <br>
 

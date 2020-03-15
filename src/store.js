@@ -1,20 +1,24 @@
 const store = {
   namespaced: true,
   state: {
-    modals: [],
+    registered: {},
+    open: [],
   },
   getters: {
-    active: state => (state.modals.length > 0 ? state.modals[0].name : null),
-    allOpen: state => state.modals,
+    active: state => (state.open.length > 0 ? state.open[state.open.length - 1].name : null),
+    allOpen: state => state.open,
+    allRegistered: state => state.registered,
   },
   mutations: {
-    ADD: (state, payload) => state.modals.unshift(payload),
-    REMOVE: (state, payload) => (state.modals = state.modals.filter(e => e.name !== payload)),
-    REMOVEOPEN: state => state.modals.splice(0, 1),
+    OPEN: (state, { name, options, resolve }) =>
+      state.open.push({ name, options, resolve, component: state.registered[name] }),
+    CLOSE: (state, payload) => (state.open = state.open.filter(e => e.name !== payload)),
+    REGISTER: (state, { name, component }) => (state.registered[name] = component),
   },
   actions: {
-    add: ({ commit }, { name, data, resolve }) => commit('ADD', { name, data, resolve }),
-    remove: ({ commit }, payload) => (!payload ? commit('REMOVEOPEN') : commit('REMOVE', payload)),
+    register: ({ commit }, payload) => commit('REGISTER', payload),
+    open: ({ commit }, payload) => commit('OPEN', payload),
+    close: ({ commit }, payload) => commit('CLOSE', payload),
   },
 }
 
