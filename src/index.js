@@ -27,6 +27,8 @@ export default function(Vue, store) {
   const openModal = (name, options = {}, data = null) => {
     const isRegistered = !!store.getters['x5/m/allRegistered'][name]
     if (!isRegistered) return warning(`Modal '${name}' not registered.`)
+    const isOpen = !!store.getters['x5/m/allOpen'][name]
+    if (isOpen) return warning(`Modal '${name}' already open.`)
     let resolve
     const promise = new Promise(res => (resolve = res))
     store.dispatch('x5/m/open', { name, options, data, resolve })
