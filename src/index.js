@@ -17,13 +17,6 @@ export default function(Vue, store) {
   Vue.component('x5Modal', Modal)
   Vue.component('x5Modals', Component)
 
-  // Close any close-able modals when the parent component is destroyed
-  Vue.mixin({
-    beforeDestory() {
-      closeModals()
-    },
-  })
-
   // Register Modal
   const registerModal = (name, component) => {
     const isRegistered = !!store.getters['x5/m/allRegistered'][name]
@@ -57,13 +50,14 @@ export default function(Vue, store) {
     store.dispatch('x5/m/close', name)
   }
   // Close Modals
-  const closeModals = () => {
-    store.getters['x5/m/allOpen'].filter(e => e.options.keepOPen).forEach(e => {
-      warning(`Modal '${e.name}' force closed.`)
-      closeModal(e.name)
-    })
-  }
+  const closeModals = () =>
+    store.getters['x5/m/allOpen']
+      .filter(e => !e.options.keepOpen)
+      .forEach(e => {
+        warning(`Modal '${e.name}' force closed.`)
+        closeModal(e.name)
+      })
 
   // Vue commands
-  Vue.prototype.$x5 = { ...Vue.prototype.$x5, registerModal, openModal, editModal, closeModal }
+  Vue.prototype.$x5 = { ...Vue.prototype.$x5, registerModal, openModal, editModal, closeModal, closeModals }
 }
