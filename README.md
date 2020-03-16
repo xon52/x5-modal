@@ -194,25 +194,6 @@ export default {
 }
 ```
 
-### Resolve Prop
-
-Similarly to the 'data' prop, your modal component will also have access to the resolve function of the promise made by
-`x5.openModal()`. This is really useful when you are using `keepOpen` and handling the modal closing yourself, but still
-want a value returned before the close.
-
-```js
-// ExampleModal.vue
-// ...
-export default {
-  props: ['resolve'],
-  methods: {
-    send() {
-      resolve('Message sent, but modal not closed.')
-    },
-  },
-}
-```
-
 <br>
 
 ---

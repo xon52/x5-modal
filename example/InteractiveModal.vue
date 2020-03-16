@@ -30,15 +30,14 @@
 <script>
 export default {
   name: 'InteractiveModal',
-  props: ['data', 'resolve'],
+  props: ['data'],
   data: () => ({
     loading: false,
     result: null,
   }),
   methods: {
     close() {
-      this.resolve(this.result)
-      this.$x5.closeModal('interactive')
+      this.$x5.closeModal('interactive', this.result)
     },
     async submit() {
       this.loading = true
