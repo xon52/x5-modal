@@ -150,10 +150,12 @@ export default {
 | valid       | Boolean | `true`  | OK (submit button) is enabled                                     |
 | width       | Number  |  `500`  | Maximum window width                                              |
 
-## Additional Features
+## Additional Features / Notes
 
 - Using `$x5.openModal` returns a promise and is resolved with the customizable `okValue` or `cancelValue` props
 - `$x5.closeModal()` [without a name] will close the active modal
+- `$x5.closeModals()` will close all open modals without the `keepOpen` flag
+- If using **vue-router**, changing the route will close all open modals without the `keepOpen` flag
 
 ### Data Prop
 

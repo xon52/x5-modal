@@ -14,6 +14,11 @@
       And it returned:
       <span class="boxed greyed">{{ dataOut ? `${dataOut} 😀` : 'Nothing returned 😥' }}</span>
     </p>
+    <hr />
+    <!-- Routes -->
+    <p>We also disable back buttons when a modal is opened.</p>
+    <p>Not ideal, but without it the modal persists even when the route changes.</p>
+    <router-view></router-view>
     <!-- Modals -->
     <x5-modals></x5-modals>
   </div>
@@ -24,6 +29,7 @@ import PlainModal from './PlainModal'
 import NoButtonsModal from './NoButtonsModal'
 import FullModal from './FullModal'
 import InteractiveModal from './InteractiveModal'
+import RouteModal from './RouteModal'
 
 export default {
   name: 'Example-App',
@@ -43,6 +49,7 @@ export default {
     this.$x5.registerModal('plain', PlainModal)
     this.$x5.registerModal('noButtons', NoButtonsModal)
     this.$x5.registerModal('interactive', InteractiveModal)
+    this.$x5.registerModal('route', RouteModal)
   },
 }
 </script>
