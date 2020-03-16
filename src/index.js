@@ -17,6 +17,10 @@ export default function(Vue, store) {
   Vue.component('x5Modal', Modal)
   Vue.component('x5Modals', Component)
 
+  // TODO: Remove promise resolve prop
+  // TODO: Add close all function
+  // TODO: Close all on component destroyed (forward and back buttons leave modal open throughout app)
+
   // Register Modal
   const registerModal = (name, component) => {
     const isRegistered = !!store.getters['x5/m/allRegistered'][name]
@@ -35,7 +39,12 @@ export default function(Vue, store) {
     store.dispatch('x5/m/open', { name, options, data, resolve })
     return promise
   }
-  // TODO: Edit modal (to add/change options and data)
+  // Edit Modal
+  const editModal = (name, options = {}, data = null) => {
+    const isOpen = !!store.getters['x5/m/allOpen'].find(e => e.name === name)
+    if (!isOpen) return warning(`Modal '${name}' cannot be edited until it is open.`)
+    store.dispatch('x5/m/edit', { name, options, data })
+  }
   // Close Modal
   const closeModal = (name, result) => {
     if (!name) name = store.getters['x5/m/active']
@@ -46,5 +55,5 @@ export default function(Vue, store) {
   }
 
   // Vue commands
-  Vue.prototype.$x5 = { ...Vue.prototype.$x5, registerModal, openModal, closeModal }
+  Vue.prototype.$x5 = { ...Vue.prototype.$x5, registerModal, openModal, editModal, closeModal }
 }

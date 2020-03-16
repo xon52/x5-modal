@@ -21,11 +21,15 @@
       <li><code>okText</code> of "Send" and <code>cancelText</code> of "Don't Send"</li>
       <li>
         Can open other modals from an inline click command <code>@click="$x5.openModal('plain')"</code>
-        <a @click="$x5.openModal('plain')">here</a><br />
+        <a @click="$x5.openModal('plain')">here</a>
       </li>
       <li>The <code>zIndex</code> is set to "10" so it remains below the opened modal (default zIndex of "200")</li>
       <li>All modals have a <code>loading</code> attribute: <a @click="load">Try it</a></li>
       <li>To enable the OK (Send) button the <code>valid</code> attribute needs to be TRUE (check the checkbox)</li>
+      <li>
+        You can also change properties on the fly using <code>$x5.editModal(name, options, data)</code>
+        <a @click="edit">like so</a>
+      </li>
     </ul>
     <input type="checkbox" id="checkbox" v-model="checked" />
     <label for="checkbox">Validation: {{ checked ? 'Now' : 'Not' }} ready to send</label>
@@ -43,6 +47,9 @@ export default {
     load() {
       this.loading = true
       setTimeout(() => (this.loading = false), 2000)
+    },
+    edit() {
+      this.$x5.editModal('full', { title: 'Bathroom Sink' })
     },
   },
 }

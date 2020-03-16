@@ -179,6 +179,21 @@ export default {
 }
 ```
 
+### Edit an open Modal
+
+You can also edit the options and data of an open modal with `x5.editModal(name, options, data)`.
+
+```js
+// Anywhere
+export default {
+  methods: {
+    loading() {
+      this.$x5.editModal('example', { loading: true })
+    },
+  },
+}
+```
+
 ### Resolve Prop
 
 Similarly to the 'data' prop, your modal component will also have access to the resolve function of the promise made by
