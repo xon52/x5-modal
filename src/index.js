@@ -17,9 +17,12 @@ export default function(Vue, store) {
   Vue.component('x5Modal', Modal)
   Vue.component('x5Modals', Component)
 
-  // TODO: Remove promise resolve prop
-  // TODO: Add close all function
-  // TODO: Close all on component destroyed (forward and back buttons leave modal open throughout app)
+  // Close any close-able modals when the parent component is destroyed
+  Vue.mixin({
+    beforeDestory() {
+      closeModals()
+    },
+  })
 
   // Register Modal
   const registerModal = (name, component) => {
@@ -52,6 +55,13 @@ export default function(Vue, store) {
     if (!modal) return warning(`Modal '${name}' not found.`)
     modal.resolve(result)
     store.dispatch('x5/m/close', name)
+  }
+  // Close Modals
+  const closeModals = () => {
+    store.getters['x5/m/allOpen'].filter(e => e.options.keepOPen).forEach(e => {
+      warning(`Modal '${e.name}' force closed.`)
+      closeModal(e.name)
+    })
   }
 
   // Vue commands
