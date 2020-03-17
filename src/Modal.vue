@@ -98,5 +98,10 @@ export default {
   beforeDestroy() {
     if (this.isActive) this.$x5.closeModal(this.name)
   },
+  watch: {
+    $route(to, from) {
+      this.$x5.closeModal(this.name)
+    },
+  },
 }
 </script>

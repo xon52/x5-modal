@@ -17,10 +17,5 @@ export default {
       return this.$store.getters['x5/m/allOpen']
     },
   },
-  watch: {
-    $route(to, from) {
-      if (this.modals.length > 0) this.$x5.closeModals()
-    },
-  },
 }
 </script>
