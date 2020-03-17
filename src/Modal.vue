@@ -100,7 +100,7 @@ export default {
   },
   watch: {
     $route(to, from) {
-      this.$x5.closeModal(this.name)
+      if (!this.options.keepOpen) this.$x5.closeModal(this.name)
     },
   },
 }
