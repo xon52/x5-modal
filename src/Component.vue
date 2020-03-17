@@ -7,8 +7,6 @@
 </template>
 
 <script>
-const buttonsOptions = ['OK', 'Cancel', 'OKCancel']
-
 export default {
   name: 'x5-M-Component',
   props: {

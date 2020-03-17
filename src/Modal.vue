@@ -34,7 +34,6 @@
 
 <script>
 const buttonsOptions = ['OK', 'Cancel', 'OKCancel']
-const has = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 
 export default {
   name: 'x5-M-Component',
