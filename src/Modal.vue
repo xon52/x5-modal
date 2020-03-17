@@ -77,7 +77,8 @@ export default {
       this.$x5.closeModal(this.name, val)
     },
     cancel() {
-      this.options.keepOpen ? this.$emit('cancel') : this.close(this.options.cancelValue)
+      this.$emit('cancel')
+      if (!this.options.keepOpen) this.close(this.options.cancelValue)
     },
     denyClose() {
       this.attention = true
@@ -88,7 +89,8 @@ export default {
       else this.denyClose()
     },
     ok() {
-      this.options.keepOpen ? this.$emit('ok') : this.close(this.options.okValue)
+      this.$emit('ok')
+      if (!this.options.keepOpen) this.close(this.options.okValue)
     },
   },
   mounted() {
