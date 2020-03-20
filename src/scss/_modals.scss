@@ -72,7 +72,7 @@
       text-align: end;
       button {
         background-color: transparent;
-        border: 0 solid #4442;
+        border: 1px solid #4440;
         color: #666;
         cursor: pointer;
         font-size: 16px;
@@ -83,13 +83,13 @@
         min-width: 80px;
         &.x5-m-ok {
           color: dodgerblue;
-          border-color: #1e90ff80;
           &:hover {
+            border-color: #1e90ff80;
             background-color: #68b1fa42;
           }
         }
         &:hover {
-          border-width: 1px;
+          border-color: #4442;
         }
         &:disabled {
           color: #ccc;
