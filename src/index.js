@@ -24,7 +24,7 @@ export default function(Vue, store) {
     store.dispatch('x5/m/register', { name, component })
   }
   // Open Modal
-  const openModal = (name, options = {}, data = null) => {
+  const openModal = (name, options = {}, data = {}) => {
     const isRegistered = !!store.getters['x5/m/allRegistered'][name]
     if (!isRegistered) return warning(`Modal '${name}' not registered.`)
     const isOpen = !!store.getters['x5/m/allOpen'].find(e => e.name === name)
