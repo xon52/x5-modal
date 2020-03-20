@@ -152,6 +152,7 @@ export default {
 
 ## Additional Features / Notes
 
+- If only using a cancel button, the `cancelText` will default to "Close" rather than "Cancel"
 - Using `$x5.openModal` returns a promise and is resolved with the customizable `okValue` or `cancelValue` props
 - `$x5.closeModal()` [without a name] will close the active modal
 - `$x5.closeModals()` will close all open modals without the `keepOpen` flag

@@ -15,7 +15,7 @@
       </div>
       <!-- Footer -->
       <div v-if="options.buttons" class="x5-m-footer">
-        <button v-if="showCancel" @click="cancel" :disabled="options.loading">{{ options.cancelText }}</button>
+        <button v-if="showCancel" @click="cancel" :disabled="options.loading">{{ _cancelText }}</button>
         <button v-if="showOK" class="x5-m-ok" :disabled="!options.valid || options.loading" @click="ok">
           {{ options.okText }}
         </button>
@@ -61,6 +61,11 @@ export default {
     options() {
       if (!this.modal) return {}
       return { ...this.$props, ...this.modal.options }
+    },
+    _cancelText() {
+      return this.options.buttons === 'Cancel' && this.options.cancelText === 'Cancel'
+        ? 'Close'
+        : this.options.cancelText
     },
     showCancel() {
       return this.options.buttons.includes('Cancel')
