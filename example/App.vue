@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <img class="logo" src="./x5-m-logo.png" width="300" />
+    <img class="logo" src="./logo.svg" width="300" />
     <h1 class="title">x5-Modal Example</h1>
     <button class="button" @click="$x5.openModal('plain')">Plain</button>
     <button class="button" @click="$x5.openModal('noButtons')">No Buttons</button>
@@ -35,14 +35,14 @@ export default {
   name: 'Example-App',
   data: () => ({
     dataOut: null,
-    dataIn: null,
+    dataIn: null
   }),
   methods: {
     interactive() {
       this.$x5.openModal('interactive', {}, this.dataIn).then(val => {
         this.dataOut = val
       })
-    },
+    }
   },
   created() {
     this.$x5.registerModal('full', FullModal)
@@ -50,7 +50,7 @@ export default {
     this.$x5.registerModal('noButtons', NoButtonsModal)
     this.$x5.registerModal('interactive', InteractiveModal)
     this.$x5.registerModal('route', RouteModal)
-  },
+  }
 }
 </script>
 
