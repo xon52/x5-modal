@@ -1,6 +1,5 @@
 # x5 Modal ([Live Demo](https://codesandbox.io/s/x5-modal-example-i3301?hidenavigation=1&view=preview))
 
-![GitHub file size in bytes](https://img.shields.io/github/size/xon52/x5-modal/dist/index.js)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/x5-modal)
 
 This is a lightweight modal management plugin for Vue.
