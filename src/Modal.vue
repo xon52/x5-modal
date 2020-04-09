@@ -106,7 +106,7 @@ export default {
     if (this.isActive) this.$x5.closeModal(this.name)
   },
   watch: {
-    $route(to, from) {
+    $route() {
       if (!this.options.keepOpen) this.$x5.closeModal(this.name)
     },
   },

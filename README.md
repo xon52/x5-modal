@@ -1,4 +1,4 @@
-# x5 Modal ([Live Demo](https://codesandbox.io/s/x5-modal-example-i3301?hidenavigation=1&view=preview))
+# x5 Modal ([Live Demo](https://xon52.github.io/x5-modal/))
 
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/x5-modal)
 

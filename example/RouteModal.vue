@@ -26,7 +26,7 @@ export default {
     keepOpen: false,
   }),
   watch: {
-    keepOpen(newVal, oldVal) {
+    keepOpen() {
       this.$x5.editModal('route', { keepOpen: this.keepOpen })
     },
   },

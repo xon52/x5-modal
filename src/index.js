@@ -3,9 +3,9 @@ import Modal from './Modal.vue'
 import PluginStore from './store'
 import './scss/index.scss'
 
-const warning = message => {
+const warning = (message) => {
   if (process.env.NODE_ENV === 'production') return
-  console.warn(`[x5Modal WARN]: ${message}`)
+  console.warn(`[x5Modal WARN]: ${message}`) // eslint-disable-line
 }
 
 // Install
@@ -27,24 +27,24 @@ export default function(Vue, store) {
   const openModal = (name, options = {}, data = {}) => {
     const isRegistered = !!store.getters['x5/m/allRegistered'][name]
     if (!isRegistered) return warning(`Modal '${name}' not registered.`)
-    const isOpen = !!store.getters['x5/m/allOpen'].find(e => e.name === name)
+    const isOpen = !!store.getters['x5/m/allOpen'].find((e) => e.name === name)
     // FIXME: returning null throws an error if there is a .then() chained to the openModal() call
     if (isOpen) return warning(`Modal '${name}' already open.`)
     let resolve
-    const promise = new Promise(res => (resolve = res))
+    const promise = new Promise((res) => (resolve = res))
     store.dispatch('x5/m/open', { name, options, data, resolve })
     return promise
   }
   // Edit Modal
   const editModal = (name, options = {}, data = null) => {
-    const isOpen = !!store.getters['x5/m/allOpen'].find(e => e.name === name)
+    const isOpen = !!store.getters['x5/m/allOpen'].find((e) => e.name === name)
     if (!isOpen) return warning(`Modal '${name}' cannot be edited until it is open.`)
     store.dispatch('x5/m/edit', { name, options, data })
   }
   // Close Modal
   const closeModal = (name, result) => {
     if (!name) name = store.getters['x5/m/active']
-    let modal = store.getters['x5/m/allOpen'].find(e => e.name === name)
+    let modal = store.getters['x5/m/allOpen'].find((e) => e.name === name)
     if (!modal) return warning(`Modal '${name}' not found.`)
     modal.resolve(result)
     store.dispatch('x5/m/close', name)
@@ -52,8 +52,8 @@ export default function(Vue, store) {
   // Close Modals
   const closeModals = () =>
     store.getters['x5/m/allOpen']
-      .filter(e => !e.options.keepOpen)
-      .forEach(e => {
+      .filter((e) => !e.options.keepOpen)
+      .forEach((e) => {
         warning(`Modal '${e.name}' force closed.`)
         closeModal(e.name)
       })

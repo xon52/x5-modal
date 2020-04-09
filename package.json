@@ -1,37 +1,26 @@
 {
-  "private": false,
   "name": "x5-modal",
   "version": "0.2.12",
+  "private": false,
   "description": "A lightweight modal plugin for Vue",
-  "main": "dist",
-  "scripts": {
-    "serve": "npx vue-cli-service serve example",
-    "build": "webpack",
-    "build-vue-cli": "npx vue-cli-service build --target lib --filename index.js src/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xon52/x5-modal.git"
-  },
-  "keywords": [
-    "vue",
-    "plugin",
-    "modal",
-    "dialog",
-    "popup"
-  ],
   "author": "Keagan Chisnall",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/xon52/x5-modal/issues"
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "deploy": "rimraf dist && webpack && npx publish"
   },
-  "homepage": "https://github.com/xon52/x5-modal#readme",
+  "main": "dist",
   "files": [
     "dist"
   ],
   "devDependencies": {
-    "@vue/cli-service": "^4.3.0",
-    "css-loader": "^3.4.2",
+    "@vue/cli-plugin-babel": "^4.3.1",
+    "@vue/cli-plugin-eslint": "~4.3.0",
+    "@vue/cli-plugin-vuex": "^4.3.1",
+    "@vue/cli-service": "^4.3.1",
+    "babel-eslint": "^10.1.0",
+    "core-js": "^3.6.4",
+    "css-loader": "^3.5.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.13.1",
@@ -42,11 +31,23 @@
     "vue-router": "^3.1.6",
     "vue-template-compiler": "^2.6.11",
     "vuex": "^3.1.3",
-    "webpack": "^4.42.1",
+    "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11"
   },
-  "peerdependencies": {
-    "vue": "^2.6.11",
-    "vuex": "^3.1.3"
+  "bugs": {
+    "url": "https://github.com/xon52/x5-modal/issues"
+  },
+  "homepage": "https://xon52.github.io/x5-modal",
+  "keywords": [
+    "vue",
+    "plugin",
+    "modal",
+    "dialog",
+    "popup"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xon52/x5-modal.git"
   }
 }

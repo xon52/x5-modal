@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <img class="logo" src="./logo.svg" width="300" />
+    <img class="logo" src="./img/logo.svg" width="300" />
     <h1 class="title">x5-Modal Example</h1>
     <button class="button" @click="$x5.openModal('plain')">Plain</button>
     <button class="button" @click="$x5.openModal('noButtons')">No Buttons</button>
