@@ -1,6 +1,6 @@
 {
   "name": "x5-modal",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "private": false,
   "description": "A lightweight modal plugin for Vue",
   "author": "Keagan Chisnall",
@@ -15,11 +15,11 @@
   ],
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.3.1",
-    "@vue/cli-plugin-eslint": "~4.3.0",
+    "@vue/cli-plugin-eslint": "~4.3.1",
     "@vue/cli-plugin-vuex": "^4.3.1",
     "@vue/cli-service": "^4.3.1",
     "babel-eslint": "^10.1.0",
-    "core-js": "^3.6.4",
+    "core-js": "^3.6.5",
     "css-loader": "^3.5.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",

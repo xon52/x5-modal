@@ -10,12 +10,19 @@
 export default {
   name: 'x5-M-Component',
   props: {
-    zIndex: { type: [String, Number], default: 200 },
+    zIndex: { type: [String, Number], default: 200 }
   },
   computed: {
     modals() {
       return this.$store.getters['x5/m/allOpen']
-    },
+    }
   },
+  watch: {
+    // Stops scrolling in background while modal is open
+    modals: newVal => {
+      if (newVal.length > 0) document.body.classList.toggle('x5-m-no-scroll', true)
+      else if (newVal.length < 1) document.body.classList.toggle('x5-m-no-scroll', false)
+    }
+  }
 }
 </script>
