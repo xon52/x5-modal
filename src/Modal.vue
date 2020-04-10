@@ -5,13 +5,8 @@
     <div :class="`x5-m-modal ${this.attention ? 'x5-m-attention' : ''}`" :style="`max-width:${options.width}`">
       <!-- Header -->
       <div v-if="options.title" class="x5-m-header">
-        <div v-html="options.title"></div>
+        <div class="x5-m-title" v-html="options.title"></div>
         <span v-if="!options.permanent" class="x5-m-close" @click.self="cancel">❌</span>
-      </div>
-      <!-- Content -->
-      <div class="x5-m-content">
-        <!-- Slot -->
-        <slot></slot>
       </div>
       <!-- Footer -->
       <div v-if="options.buttons" class="x5-m-footer">
@@ -19,6 +14,11 @@
         <button v-if="showOK" class="x5-m-ok" :disabled="!options.valid || options.loading" @click="ok">
           {{ options.okText }}
         </button>
+      </div>
+      <!-- Content -->
+      <div class="x5-m-content">
+        <!-- Slot -->
+        <slot></slot>
       </div>
       <!-- Loading Overlay -->
       <transition name="x5-m-fade">

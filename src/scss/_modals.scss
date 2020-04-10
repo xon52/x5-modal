@@ -29,6 +29,7 @@
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
     left: 50%;
+    max-height: 90%;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -38,14 +39,22 @@
       animation: x5-m-shake 150ms;
     }
     .x5-m-header {
-      position: relative;
-      font-size: 22px;
-      border-radius: 10px 10px 0 0;
-      font-weight: bold;
       background: #fafafa;
       border-bottom: #eee 1px solid;
+      border-radius: 10px 10px 0 0;
       color: #333;
-      padding: 20px 54px 16px 24px;
+      font-size: 22px;
+      font-weight: bold;
+      height: 64px;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      ~.x5-m-content {
+        margin-top: 64px;
+      }
+      .x5-m-title {
+        padding: 20px 54px 16px 24px;
+      }
       .x5-m-close {
         font-size: 14px;
         position: absolute;
@@ -62,14 +71,20 @@
     }
     .x5-m-content {
       padding: 16px 24px;
-      max-height: 70vh;
       overflow: auto;
     }
     .x5-m-footer {
       background: #fbfbfb;
-      border-top: #eee 1px solid;
       border-radius: 0 0 10px 10px;
+      border-top: #eee 1px solid;
+      bottom: 0;
+      height: 48px;
+      position: absolute;
       text-align: end;
+      width: 100%;
+      ~.x5-m-content {
+        margin-bottom: 48px;
+      }
       button {
         background-color: transparent;
         border: 1px solid #4440;

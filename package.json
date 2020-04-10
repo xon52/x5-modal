@@ -1,6 +1,6 @@
 {
   "name": "x5-modal",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "private": false,
   "description": "A lightweight modal plugin for Vue",
   "author": "Keagan Chisnall",

@@ -4,4 +4,7 @@
 
 .x5-m-no-scroll {
   overflow: hidden;
+  position: fixed;
+  width: 100%;
+  margin-left: -8px; // Offset scrollbar
 }
