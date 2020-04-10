@@ -28,6 +28,8 @@
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    display: flex;
+    flex-flow: column;
     left: 50%;
     max-height: 90%;
     position: absolute;
@@ -43,15 +45,11 @@
       border-bottom: #eee 1px solid;
       border-radius: 10px 10px 0 0;
       color: #333;
+      flex-shrink: 1;
       font-size: 22px;
       font-weight: bold;
       height: 64px;
-      position: absolute;
-      top: 0;
       width: 100%;
-      ~.x5-m-content {
-        margin-top: 64px;
-      }
       .x5-m-title {
         padding: 20px 54px 16px 24px;
       }
@@ -70,6 +68,7 @@
       }
     }
     .x5-m-content {
+      flex-grow: 1;
       padding: 16px 24px;
       overflow: auto;
     }
@@ -77,14 +76,10 @@
       background: #fbfbfb;
       border-radius: 0 0 10px 10px;
       border-top: #eee 1px solid;
-      bottom: 0;
       height: 48px;
-      position: absolute;
+      flex-shrink: 1;
       text-align: end;
       width: 100%;
-      ~.x5-m-content {
-        margin-bottom: 48px;
-      }
       button {
         background-color: transparent;
         border: 1px solid #4440;
