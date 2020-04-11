@@ -50,7 +50,7 @@ bottom of your App.vue template)
 
 ```js
 module.exports = {
-  transpileDependencies: ['x5-notify']
+  transpileDependencies: ['x5-modal']
 }
 ```
 
