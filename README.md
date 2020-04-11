@@ -28,7 +28,7 @@ Vue.use(x5Modal, store)
 new Vue({
   el: '#app',
   store: store,
-  render: h => h(App),
+  render: h => h(App)
 })
 ```
 
@@ -73,7 +73,7 @@ import ExampleModal from './ExampleModal.vue'
 export default {
   created() {
     this.$x5.registerModal('example', ExampleModal)
-  },
+  }
 }
 ```
 
@@ -93,8 +93,8 @@ export default {
     },
     close() {
       this.$x5.closeModal('example')
-    },
-  },
+    }
+  }
 }
 ```
 
@@ -128,8 +128,8 @@ export default {
   methods: {
     open() {
       this.$x5.openModal('example', { width: '450px', title: 'Example Modal' })
-    },
-  },
+    }
+  }
 }
 ```
 
@@ -168,8 +168,8 @@ export default {
   methods: {
     open() {
       this.$x5.openModal('example', {}, 'Any data')
-    },
-  },
+    }
+  }
 }
 ```
 
@@ -177,7 +177,7 @@ export default {
 // ExampleModal.vue
 // ...
 export default {
-  props: ['data'],
+  props: ['data']
 }
 ```
 
@@ -191,14 +191,20 @@ export default {
   methods: {
     loading() {
       this.$x5.editModal('example', { loading: true })
-    },
-  },
+    }
+  }
 }
 ```
 
 <br>
 
 ---
+
+## Todo
+
+- Find a solution to stopping background scrolling when modal is open
+  - I have tried a multitude of CSS solutions and always find a trade off I decide is too costly
+  - I think the [Body scroll lock](https://github.com/willmcpo/body-scroll-lock) package is on the right track with JS - but it's too big for this lightweight project
 
 ## Contributing
 

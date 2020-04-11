@@ -16,13 +16,6 @@ export default {
     modals() {
       return this.$store.getters['x5/m/allOpen']
     }
-  },
-  watch: {
-    // Stops scrolling in background while modal is open
-    modals: newVal => {
-      if (newVal.length > 0) document.body.classList.toggle('x5-m-no-scroll', true)
-      else if (newVal.length < 1) document.body.classList.toggle('x5-m-no-scroll', false)
-    }
   }
 }
 </script>
