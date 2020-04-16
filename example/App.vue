@@ -4,6 +4,7 @@
     <h1 class="title">x5-Modal Example</h1>
     <button class="button" @click="$x5.openModal('plain')">Plain</button>
     <button class="button" @click="$x5.openModal('noButtons')">No Buttons</button>
+    <button class="button" @click="$x5.openModal('double')">Double</button>
     <button class="button" @click="$x5.openModal('full')">Full</button>
     <hr />
     <!-- Output -->
@@ -27,6 +28,7 @@
 <script>
 import PlainModal from './PlainModal'
 import NoButtonsModal from './NoButtonsModal'
+import DoubleModal from './DoubleModal'
 import FullModal from './FullModal'
 import InteractiveModal from './InteractiveModal'
 import RouteModal from './RouteModal'
@@ -47,6 +49,7 @@ export default {
   created() {
     this.$x5.registerModal('full', FullModal)
     this.$x5.registerModal('plain', PlainModal)
+    this.$x5.registerModal('double', DoubleModal)
     this.$x5.registerModal('noButtons', NoButtonsModal)
     this.$x5.registerModal('interactive', InteractiveModal)
     this.$x5.registerModal('route', RouteModal)

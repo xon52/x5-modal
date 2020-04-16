@@ -33,15 +33,15 @@
     </ul>
     <input type="checkbox" id="checkbox" v-model="checked" />
     <label for="checkbox">Validation: {{ checked ? 'Now' : 'Not' }} ready to send</label>
-  </x5-modal></template
->
+  </x5-modal>
+</template>
 
 <script>
 export default {
   name: 'FullModal',
   data: () => ({
     loading: false,
-    checked: false,
+    checked: false
   }),
   methods: {
     load() {
@@ -50,7 +50,7 @@ export default {
     },
     edit() {
       this.$x5.editModal('full', { title: 'Bathroom Sink' })
-    },
-  },
+    }
+  }
 }
 </script>

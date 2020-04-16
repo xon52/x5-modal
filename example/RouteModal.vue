@@ -23,12 +23,12 @@
 export default {
   name: 'RouteModal',
   data: () => ({
-    keepOpen: false,
+    keepOpen: false
   }),
   watch: {
     keepOpen() {
       this.$x5.editModal('route', { keepOpen: this.keepOpen })
-    },
-  },
+    }
+  }
 }
 </script>

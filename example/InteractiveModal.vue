@@ -33,7 +33,7 @@ export default {
   props: ['data'],
   data: () => ({
     loading: false,
-    result: null,
+    result: null
   }),
   methods: {
     close() {
@@ -43,7 +43,7 @@ export default {
       this.loading = true
       let wait = new Promise(resolve => setTimeout(() => resolve(), 2000))
       wait.then(() => this.close()).finally(() => (this.loading = false))
-    },
-  },
+    }
+  }
 }
 </script>
