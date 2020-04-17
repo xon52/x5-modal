@@ -1,16 +1,16 @@
 @keyframes x5-m-shake {
   14%,
   70% {
-    transform: translate(-49%, -49%);
+    transform: translate(-1%, -1%);
   }
   28%,
   56%,
   84% {
-    transform: translate(-49%, -51%);
+    transform: translate(1%, 1%);
   }
   42%,
   98% {
-    transform: translate(-51%, -51%);
+    transform: translate(-1%, -1%);
   }
 }
 
