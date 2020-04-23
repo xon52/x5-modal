@@ -28,7 +28,7 @@ Vue.use(x5Modal, store)
 new Vue({
   el: '#app',
   store: store,
-  render: h => h(App)
+  render: (h) => h(App),
 })
 ```
 
@@ -50,7 +50,7 @@ bottom of your App.vue template)
 
 ```js
 module.exports = {
-  transpileDependencies: ['x5-modal']
+  transpileDependencies: ['x5-modal'],
 }
 ```
 
@@ -74,14 +74,19 @@ module.exports = {
 
 :info: This does not need to be in the same component you're calling it from - it can be anywhere
 
+There are two different ways to register: 1) Pre-load with the parent modal, 2) Import only when the modal is opened (code splitting)
+
 ```js
-// Anywhere
+// Method 1
 import ExampleModal from './ExampleModal.vue'
 
 export default {
   created() {
+    // Method 1 (pre-load it for when it's needed)
     this.$x5.registerModal('example', ExampleModal)
-  }
+    // Method 2 (register an import function for when it's needed)
+    this.$x5.registerModal('example', () => import('./CodeSplittingModal'))
+  },
 }
 ```
 
@@ -101,8 +106,8 @@ export default {
     },
     close() {
       this.$x5.closeModal('example')
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -136,8 +141,8 @@ export default {
   methods: {
     open() {
       this.$x5.openModal('example', { width: '450px', title: 'Example Modal' })
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -176,8 +181,8 @@ export default {
   methods: {
     open() {
       this.$x5.openModal('example', {}, 'Any data')
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -185,7 +190,7 @@ export default {
 // ExampleModal.vue
 // ...
 export default {
-  props: ['data']
+  props: ['data'],
 }
 ```
 
@@ -199,8 +204,8 @@ export default {
   methods: {
     loading() {
       this.$x5.editModal('example', { loading: true })
-    }
-  }
+    },
+  },
 }
 ```
 

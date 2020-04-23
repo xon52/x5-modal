@@ -26,12 +26,8 @@
 </template>
 
 <script>
-import PlainModal from './PlainModal'
-import NoButtonsModal from './NoButtonsModal'
 import DoubleModal from './DoubleModal'
 import FullModal from './FullModal'
-import InteractiveModal from './InteractiveModal'
-import RouteModal from './RouteModal'
 
 export default {
   name: 'Example-App',
@@ -47,12 +43,13 @@ export default {
     }
   },
   created() {
-    this.$x5.registerModal('full', FullModal)
-    this.$x5.registerModal('plain', PlainModal)
+    // This shows the two different ways to register a component
     this.$x5.registerModal('double', DoubleModal)
-    this.$x5.registerModal('noButtons', NoButtonsModal)
-    this.$x5.registerModal('interactive', InteractiveModal)
-    this.$x5.registerModal('route', RouteModal)
+    this.$x5.registerModal('full', FullModal)
+    this.$x5.registerModal('interactive', () => import('./InteractiveModal'))
+    this.$x5.registerModal('noButtons', () => import('./NoButtonsModal'))
+    this.$x5.registerModal('plain', () => import('./PlainModal'))
+    this.$x5.registerModal('route', () => import('./RouteModal'))
   }
 }
 </script>
