@@ -61,7 +61,7 @@ export default {
       vm.options.buttons === 'Cancel' && vm.options.cancelText === 'Cancel' ? 'Close' : vm.options.cancelText,
     showCancel: vm => vm.options.buttons.includes('Cancel'),
     showOK: vm => vm.options.buttons.includes('OK'),
-    isActive: vm => vm.$store.getters['x5/m/active'] === this.name
+    isActive: vm => vm.$store.getters['x5/m/active'] === vm.name
   },
   methods: {
     close(val) {
