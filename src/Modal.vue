@@ -11,7 +11,7 @@
       <!-- Content -->
       <div class="x5-m-content">
         <!-- Slot -->
-        <slot></slot>
+        <slot />
       </div>
       <!-- Footer -->
       <div v-if="options.buttons" class="x5-m-footer">
@@ -49,33 +49,19 @@ export default {
     permanent: { type: Boolean, default: false },
     title: { type: String, default: null },
     valid: { type: Boolean, default: true },
-    width: { type: String, default: '650px' },
+    width: { type: String, default: '650px' }
   },
   data: () => ({
-    attention: false,
+    attention: false
   }),
   computed: {
-    modal() {
-      return this.$store.getters['x5/m/allOpen'].find(e => e.name === this.name)
-    },
-    options() {
-      if (!this.modal) return {}
-      return { ...this.$props, ...this.modal.options }
-    },
-    _cancelText() {
-      return this.options.buttons === 'Cancel' && this.options.cancelText === 'Cancel'
-        ? 'Close'
-        : this.options.cancelText
-    },
-    showCancel() {
-      return this.options.buttons.includes('Cancel')
-    },
-    showOK() {
-      return this.options.buttons.includes('OK')
-    },
-    isActive() {
-      return this.$store.getters['x5/m/active'] === this.name
-    },
+    modal: vm => vm.$store.getters['x5/m/allOpen'].find(e => e.name === vm.name),
+    options: vm => (vm.modal ? { ...vm.$props, ...vm.modal.options } : {}),
+    _cancelText: vm =>
+      vm.options.buttons === 'Cancel' && vm.options.cancelText === 'Cancel' ? 'Close' : vm.options.cancelText,
+    showCancel: vm => vm.options.buttons.includes('Cancel'),
+    showOK: vm => vm.options.buttons.includes('OK'),
+    isActive: vm => vm.$store.getters['x5/m/active'] === this.name
   },
   methods: {
     close(val) {
@@ -96,7 +82,7 @@ export default {
     ok() {
       this.$emit('ok')
       if (!this.options.keepOpen) this.close(this.options.okValue)
-    },
+    }
   },
   mounted() {
     if (this.options.buttons && !buttonsOptions.includes(this.options.buttons))
@@ -108,7 +94,7 @@ export default {
   watch: {
     $route() {
       if (!this.options.keepOpen) this.$x5.closeModal(this.name)
-    },
-  },
+    }
+  }
 }
 </script>
