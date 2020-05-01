@@ -4,7 +4,7 @@
 
 This is a lightweight modal management plugin for Vue.
 
-:info: For updating to v0.4 please read [MIGRATION.md](./MIGRATION.md) for the process for submitting
+:information_source: For updating to v0.4 please read [MIGRATION.md](./MIGRATION.md) for the process for submitting
 
 :warning: This plugin is in development, so please let me know if you find any errors.
 
