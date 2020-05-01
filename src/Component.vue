@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import x5Modal from './Modal'
+import x5Modal from './Modal.vue'
 
 export default {
   name: 'x5-M-Component',

@@ -1,7 +1,7 @@
 import Component from './Component.vue'
-// TODO: Depreciated v0.3.0 2020/05/01
+// TODO: Depreciated v0.4.0 2020/05/01
 import LegacyModal from './LegacyModal.vue'
-import PluginStore from './store'
+import PluginStore from './store.js'
 import './scss/index.scss'
 
 const warning = (message) => {
@@ -28,9 +28,9 @@ export default function(Vue, store) {
   const openModal = (name, data = null, options = {}) => {
     const isRegistered = !!store.getters['x5/m/allRegistered'][name]
     if (!isRegistered) return warning(`Modal '${name}' not registered.`)
-    // TODO: Legacy guard v0.3.0 2020/05/01
+    // TODO: Legacy guard v0.4.0 2020/05/01
     if (data && (data.title || data.buttons))
-      warning(`⚠️ x5-modal Plugin Warning :: v0.3.0 has swapped the order of data and options in the $x5.openModal() command. Please see
+      warning(`⚠️ x5-modal Plugin Warning :: v0.4.0 has swapped the order of data and options in the $x5.openModal() command. Please see
       <a href="https://github.com/xon52/x5-modal/blob/master/MIGRATION.md">here</a> for update instructions.`)
     const isOpen = !!store.getters['x5/m/allOpen'].find((e) => e.name === name)
     // FIXME: returning null throws an error if there is a .then() chained to the openModal() call

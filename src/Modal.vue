@@ -55,7 +55,7 @@ const modalDefaults = {
   width: '650px'
 }
 
-import ModalError from './Error'
+import ModalError from './Error.vue'
 
 export default {
   name: 'x5-m-modal',
