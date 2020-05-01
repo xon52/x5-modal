@@ -4,6 +4,8 @@
 
 This is a lightweight modal management plugin for Vue.
 
+:info: For updating from v0.2 to v0.3 please read [MIGRATION.md](./MIGRATION.md) for the process for submitting
+
 :warning: This plugin is in development, so please let me know if you find any errors.
 
 ## Installation
@@ -58,23 +60,11 @@ module.exports = {
 
 # Usage
 
-## Step 1: Create a modal component using the `<x5-modal>` wrapper
-
-```html
-<!-- ExampleModal.vue -->
-<template>
-  <x5-modal name="example">
-    <p>Name is the only required property for the `x5-modal` component</p>
-    <p>It must be unique for each modal!</p>
-  <x5-modal>
-</template>
-```
+## Step 1: Pick a component to turn into a modal
 
 ## Step 2: Register the modal (anywhere before you need to open it)
 
-:info: This does not need to be in the same component you're calling it from - it can be anywhere
-
-There are two different ways to register: 1) Pre-load with the parent modal, 2) Import only when the modal is opened (code splitting)
+You can pre-load the component and use that, or use code-splitting to import it only when it's needed:
 
 ```js
 // Method 1
@@ -121,46 +111,52 @@ export default {
 </template>
 ```
 
-## Modal Component and Instance Properties
+## Modal Component and Instance Options
 
-These settings can be called as props to the `<x5-modal>` wrapper of your modal **AND** overridden as an options object
-when the modal is opened:
+Options can be set within your component using `$emit('setOptions',{})`, and/or when the modal is opened using the 3rd function parameted.
 
 ```html
-<!-- ExampleModal.vue -->
+<!-- First method: ExampleModal.vue -->
 <template>
-  <x5-modal name="example" buttons="Cancel" :loading="isLoading" width="300px">
-    <p>An example.</p>
-  <x5-modal>
+  <p>An example.</p>
 </template>
+
+<script>
+  export default {
+    created() {
+      this.$emit('setOptions', { title: 'Example Title' })
+    },
+  }
+</script>
 ```
 
 ```js
-// Anywhere
+// Second method: Anywhere
 export default {
   methods: {
     open() {
-      this.$x5.openModal('example', { width: '450px', title: 'Example Modal' })
+      this.$x5.openModal('example', null, { title: 'Example Modal' })
     },
   },
 }
 ```
 
-| Option      |  Type   | Default | Description                                                       |
-| :---------- | :-----: | :-----: | :---------------------------------------------------------------- |
-| buttons     | String  |  'OK'   | Buttons to show (`OK`, `OKCancel`, `Cancel`)                      |
-| cancelText  | String  | Cancel  | Cancel button label                                               |
-| cancelValue |   Any   | `false` | Promise return value on cancel                                    |
-| keepOpen    | Boolean | `false` | Stops the modal closing on OK or Cancel (requires manual closing) |
-| loading     | Boolean | `false` | Sets modal in loading state (stops interaction)                   |
-| name        | String  |   --    | **Required** Unique name for this modal                           |
-| okText      | String  |   OK    | OK button label                                                   |
-| okValue     |   Any   | `true`  | Promise return value on OK                                        |
-| open        | Boolean | `false` | Force manual state of open                                        |
-| permanent   | Boolean | `false` | Only allow closing the window via provided buttons                |
-| title       | String  |  null   | Modal header title (leave empty for no header)                    |
-| valid       | Boolean | `true`  | OK (submit button) is enabled                                     |
-| width       | Number  |  `500`  | Maximum window width                                              |
+| Option      |   Type   |  Default   | Description                                                       |
+| :---------- | :------: | :--------: | :---------------------------------------------------------------- |
+| buttons     |  String  |    'OK'    | Buttons to show (`ok`, `okcancel`, `cancel`)                      |
+| cancelText  |  String  |   Cancel   | Cancel button label                                               |
+| cancelValue |   Any    |  `false`   | Promise return value on cancel                                    |
+| keepOpen    | Boolean  |  `false`   | Stops the modal closing on OK or Cancel (requires manual closing) |
+| name        |  String  |     --     | **Required** Unique name for this modal                           |
+| okText      |  String  |     OK     | OK button label                                                   |
+| okValue     |   Any    |   `true`   | Promise return value on OK                                        |
+| onCancel    | Function | `() => {}` | Function to be called when the cancel button is pressed           |
+| onClose     | Function | `() => {}` | Function to be called when the modal is closed                    |
+| onOK        | Function | `() => {}` | Function to be called when the ok button is pressed               |
+| permanent   | Boolean  |  `false`   | Only allow closing the window via provided buttons                |
+| title       |  String  |    null    | Modal header title (leave empty for no header)                    |
+| valid       | Boolean  |   `true`   | OK (submit button) is enabled                                     |
+| width       |  Number  |   `500`    | Maximum window width                                              |
 
 ## Additional Features / Notes
 
@@ -172,38 +168,65 @@ export default {
 
 ### Data Prop
 
-A third 'data' parameter in the `x5.openModal(name, options, data)` function. Anything set there will be accessible to
-your modal component as a prop
+Data can be passed to your modal when it is opened using the second parameter in the `x5.openModal(name, data, options)` method.
+
+Anything set there will be accessible to your modal component via the prop `data`. This is not restricted to any type and can be anything.
 
 ```js
 // Anywhere
 export default {
   methods: {
     open() {
-      this.$x5.openModal('example', {}, 'Any data')
+      this.$x5.openModal('example', 'Example data')
     },
   },
 }
 ```
 
-```js
-// ExampleModal.vue
-// ...
-export default {
-  props: ['data'],
-}
+```html
+<template>
+  <p>{{ data }}</p>
+</template>
+
+<script>
+  export default {
+    props: ['data'],
+  }
+</script>
 ```
 
 ### Edit an open Modal
 
-You can also edit the options and data of an open modal with `x5.editModal(name, options, data)`.
+Similarly to the `setModal` event, you can also edit the options of an open modal using either `$emit('editModal', options)` from within the modal component, or from somewhere else using the 3rd parameter of the method `$x5.editModal(modalName, data, options)`.
+
+Note: You can also change the data prop using `$x5.editModal(modalName, data, options)`.
+
+```html
+<!-- First method: ExampleModal.vue -->
+<template>
+  <button @click="changeTitle">An example.</button>
+</template>
+
+<script>
+  export default {
+    methods: {
+      changeTitle() {
+        this.$emit('editOptions', { title: 'Edited Title' })
+      }
+    }
+    created() {
+      this.$emit('setOptions', { title: 'Example Title' })
+    },
+  }
+</script>
+```
 
 ```js
 // Anywhere
 export default {
   methods: {
     loading() {
-      this.$x5.editModal('example', { loading: true })
+      this.$x5.editModal('example', { title: 'Edited Title' })
     },
   },
 }

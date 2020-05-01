@@ -6,19 +6,21 @@
     <button class="button" @click="$x5.openModal('noButtons')">No Buttons</button>
     <button class="button" @click="$x5.openModal('double')">Double</button>
     <button class="button" @click="$x5.openModal('full')">Full</button>
+    <button class="button" @click="$x5.openModal('download')">Download</button>
+    <button class="button" @click="$x5.openModal('timeout')">Download Timeout</button>
     <hr />
     <!-- Output -->
     <p>You can also customise modals from the open call itself:</p>
     <input v-model="dataIn" placeholder="Something to send" class="boxed" maxlength="20" />
-    <button class="button" @click="interactive">Interactive</button>
-    <p>
+    <button class="button" :disabled="!dataIn" @click="interactive">Interactive</button>
+    <p v-if="dataOut">
       And it returned:
       <span class="boxed greyed">{{ dataOut ? `${dataOut} 😀` : 'Nothing returned 😥' }}</span>
     </p>
     <hr />
     <!-- Routes -->
-    <p>We also disable back buttons when a modal is opened.</p>
-    <p>Not ideal, but without it the modal persists even when the route changes.</p>
+    <p>If you use vue-router and change the route, it automatically closes any open modals.</p>
+    <p>If you'd like to disable this function, use the <code>keepOpen</code> option.</p>
     <router-view></router-view>
     <!-- Modals -->
     <x5-modals></x5-modals>
@@ -37,19 +39,27 @@ export default {
   }),
   methods: {
     interactive() {
-      this.$x5.openModal('interactive', {}, this.dataIn).then(val => {
+      this.$x5.openModal('interactive', this.dataIn).then(val => {
         this.dataOut = val
       })
     }
   },
   created() {
     // This shows the two different ways to register a component
-    this.$x5.registerModal('double', DoubleModal)
     this.$x5.registerModal('full', FullModal)
+    this.$x5.registerModal('double', DoubleModal)
+    this.$x5.registerModal('plain', () => import('./PlainModal'))
     this.$x5.registerModal('interactive', () => import('./InteractiveModal'))
     this.$x5.registerModal('noButtons', () => import('./NoButtonsModal'))
-    this.$x5.registerModal('plain', () => import('./PlainModal'))
     this.$x5.registerModal('route', () => import('./RouteModal'))
+    this.$x5.registerModal(
+      'download',
+      () => new Promise(resolve => setTimeout(() => resolve(import('./PlainModal')), 3000))
+    )
+    this.$x5.registerModal(
+      'timeout',
+      () => new Promise(resolve => setTimeout(() => resolve(import('./PlainModal')), 6000))
+    )
   }
 }
 </script>
@@ -60,19 +70,19 @@ export default {
 }
 .boxed {
   padding: 10px;
-  border: 1px #999 solid;
+  border: 1px #999999 solid;
 }
 .greyed {
-  background: #eee;
+  background: #eeeeee;
 }
 hr {
   max-width: 300px;
   margin: 40px auto;
 }
 code {
-  background: #0801;
+  background: rgba(0, 136, 0, 0.07);
   color: green;
-  font-size: 1.2em;
+  font-size: 1.1em;
   padding: 3px;
 }
 button {
@@ -89,15 +99,9 @@ ul {
 li {
   margin-bottom: 10px;
 }
-code {
-  background: #0801;
-  color: green;
-  font-size: 1.2em;
-  padding: 3px;
-}
 a {
-  background: #0081;
-  color: #008a;
+  background: rgba(0, 0, 136, 0.1);
+  color: rgba(0, 0, 136, 0.7);
   font-size: 1.2em;
   padding: 3px;
   cursor: pointer;

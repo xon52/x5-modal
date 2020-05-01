@@ -1,0 +1,22 @@
+// Expand Transition
+.x5-m-expand-enter-active,
+.x5-m-expand-leave-active {
+  transition: all 0.3s;
+  max-height: 90vh;
+}
+.x5-m-expand-enter,
+.x5-m-expand-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+
+// Fade Transition
+.x5-m-fade-enter-active,
+.x5-m-fade-leave-active {
+  transition: all 0.3s;
+  opacity: 1;
+}
+.x5-m-fade-enter,
+.x5-m-fade-leave-to {
+  opacity: 0;
+}

@@ -1,56 +1,60 @@
 <template>
-  <x5-modal
-    :loading="loading"
-    :valid="checked"
-    buttons="OKCancel"
-    cancelText="Don't Send"
-    name="full"
-    okText="Send"
-    permanent
-    title="Kitchen Sink"
-    width="800px"
-    z-index="10"
-  >
+  <div>
     <p>Hokay so, what does this one have?</p>
     <ul>
       <li>A <code>title</code> of "Kitchen Sink" that gives us the header bar</li>
-      <li>It's <code>permanent</code>/persistant (try close it without the buttons)</li>
-      <li>Being permanent/persistant also removes the close button ↗</li>
-      <li>Set <code>max</code>-width of "800px" (default is "650px")</li>
-      <li><code>OKCancel</code> buttons (OK and Cancel)</li>
-      <li><code>okText</code> of "Send" and <code>cancelText</code> of "Don't Send"</li>
+      <li>It's <code>permanent</code> (try close it without the buttons)</li>
+      <li>Being <code>permanent</code> also removes the close button ↗</li>
+      <li>Set <code>max-width</code> of "800px" (default is "650px")</li>
+      <li><code>buttons</code> set to "OKCancel" (OK and Cancel)</li>
+      <li><code>okText</code> set to "Send" and <code>cancelText</code> to "Don't Send"</li>
       <li>
-        Can open other modals from an inline click command <code>@click="$x5.openModal('plain')"</code>
+        You can open other modals from an inline click command <code>@click="$x5.openModal('plain')"</code>
         <a @click="$x5.openModal('plain')">here</a>
       </li>
-      <li>The <code>zIndex</code> is set to "10" so it remains below the opened modal (default zIndex of "200")</li>
-      <li>All modals have a <code>loading</code> attribute: <a @click="load">Try it</a></li>
+      <li>
+        You can set the plugin to a loading mode via <code>$emit('setLoading', true)</code>: <a @click="load">Try it</a>
+      </li>
       <li>To enable the OK (Send) button the <code>valid</code> attribute needs to be TRUE (check the checkbox)</li>
       <li>
-        You can also change properties on the fly using <code>$x5.editModal(name, options, data)</code>
-        <a @click="edit">like so</a>
+        You can also change options on the fly using <code>$emit('editOptions', {options})</code>
+        <a @click="edit('title', 'Bathroom Sink')">like so</a>
       </li>
     </ul>
-    <input type="checkbox" id="checkbox" v-model="checked" />
-    <label for="checkbox">Validation: {{ checked ? 'Now' : 'Not' }} ready to send</label>
-  </x5-modal>
+    <label>
+      <input type="checkbox" id="checkbox" v-model="checked" @change="edit('valid', $event.target.checked)" />
+      Validation: {{ checked ? 'R' : 'Not r' }}eady to send</label
+    >
+  </div>
 </template>
 
 <script>
 export default {
   name: 'FullModal',
   data: () => ({
-    loading: false,
     checked: false
   }),
   methods: {
     load() {
-      this.loading = true
-      setTimeout(() => (this.loading = false), 2000)
+      this.$emit('setLoading', true)
+      setTimeout(() => this.$emit('setLoading', false), 2000)
     },
-    edit() {
-      this.$x5.editModal('full', { title: 'Bathroom Sink' })
+    edit(key, val) {
+      const options = {}
+      options[key] = val
+      this.$emit('editOptions', options)
     }
+  },
+  created() {
+    this.$emit('setOptions', {
+      valid: false,
+      buttons: 'OKCancel',
+      cancelText: "Don't Send",
+      okText: 'Send',
+      permanent: true,
+      title: 'Kitchen Sink',
+      width: '800px'
+    })
   }
 }
 </script>

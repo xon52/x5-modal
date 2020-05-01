@@ -1,6 +1,5 @@
 <template>
-  <x5-modal name="noButtons" buttons="" permanent>
-    <h1>No Buttons Modal</h1>
+  <div>
     <p>But if there are no buttons? How do we close this??</p>
     <p>
       The modal can close itself by calling <code>this.$x5.closeModal('noButtons')</code> from a method or even
@@ -12,11 +11,14 @@
     </p>
     <button @click="$x5.closeModal()">Like so</button>
     <p>Phew!</p>
-  </x5-modal>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'NoButtonsModal'
+  name: 'NoButtonsModal',
+  created() {
+    this.$emit('setOptions', { permanent: true, title: 'No Buttons Modal', buttons: '' })
+  }
 }
 </script>

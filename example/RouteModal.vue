@@ -1,34 +1,33 @@
 <template>
-  <x5-modal name="route" buttons="" @cancel="$x5.closeModal()">
-    <h1>Route Modal</h1>
+  <div>
     <p>
-      If you press back without closing this, the modal is closed.
+      If you press back (change route) without closing this, the modal is automatically closed.
     </p>
-    <hr />
     <p>
       Alternatively, if you enable <code>keepOpen</code> on the modal (i.e. you will handle the closing) then it will
       stay open even with a route change.
     </p>
-    <input type="checkbox" id="checkbox" v-model="keepOpen" />
-    <label for="checkbox">keepOpen</label>
-    <hr />
-    <p>
-      This modal also uses the <code>$x5.editModal()</code> function to change the <code>keepOpen</code> flag of the
-      modal for demonstration purposes.
-    </p>
-  </x5-modal>
+    <label>
+      <input type="checkbox" @change="keepOpen($event.target.checked)" />
+      keepOpen
+    </label>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'RouteModal',
-  data: () => ({
-    keepOpen: false
-  }),
-  watch: {
-    keepOpen() {
-      this.$x5.editModal('route', { keepOpen: this.keepOpen })
+  methods: {
+    keepOpen(val) {
+      this.$emit('editOptions', { keepOpen: val })
     }
+  },
+  created() {
+    this.$emit('setOptions', {
+      title: 'Route Modal',
+      buttons: '',
+      onCancel: () => this.$x5.closeModal()
+    })
   }
 }
 </script>

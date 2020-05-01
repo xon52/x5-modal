@@ -1,100 +1,137 @@
 <template>
-  <!-- Overlay -->
-  <div :class="`x5-m-wrapper ${isActive ? 'x5-m-overlay' : ''}`" @click.self="onOverlay">
+  <transition name="x5-m-fade" tag="div">
     <!-- Modal -->
-    <div :class="`x5-m-modal ${this.attention ? 'x5-m-attention' : ''}`" :style="`max-width:${options.width}`">
+    <div
+      v-if="modalComponent"
+      :class="`x5-m-modal ${this.attention ? 'x5-m-attention' : ''}`"
+      :style="`width:${options.width}`"
+    >
       <!-- Header -->
-      <div v-if="options.title" class="x5-m-header">
-        <div class="x5-m-title" v-html="options.title"></div>
-        <span v-if="!options.permanent" class="x5-m-close" @click.self="cancel">❌</span>
-      </div>
+      <transition name="x5-m-expand">
+        <div v-if="options.title" class="x5-m-header">
+          <div class="x5-m-title" v-html="options.title"></div>
+          <span v-if="!options.permanent" class="x5-m-close" @click.self="cancel">❌</span>
+        </div>
+      </transition>
       <!-- Content -->
       <div class="x5-m-content">
-        <!-- Slot -->
-        <slot />
+        <component
+          :is="modalComponent"
+          :data="modal.data"
+          @setOptions="setOptions"
+          @editOptions="editOptions"
+          @setLoading="setLoading"
+        />
       </div>
       <!-- Footer -->
-      <div v-if="options.buttons" class="x5-m-footer">
-        <button v-if="showCancel" @click="cancel" :disabled="options.loading">{{ _cancelText }}</button>
-        <button v-if="showOK" class="x5-m-ok" :disabled="!options.valid || options.loading" @click="ok">
-          {{ options.okText }}
-        </button>
-      </div>
-      <!-- Loading Overlay -->
-      <transition name="x5-m-fade">
-        <div v-if="options.loading" class="x5-m-loading-wrapper" @click.self="denyClose">
-          <div class="x5-m-loading">
-            <div class="x5-m-spinner"></div>
-          </div>
+      <transition name="x5-m-expand">
+        <div v-if="options.buttons" class="x5-m-footer">
+          <button v-if="showCancel" @click="cancel">{{ _cancelText }}</button>
+          <button v-if="showOK" class="x5-m-ok" :disabled="!options.valid" @click="ok">
+            {{ options.okText }}
+          </button>
         </div>
       </transition>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
-const buttonsOptions = ['OK', 'Cancel', 'OKCancel']
+// const buttonsOptions = ['ok', 'cancel', 'okcancel']
+const modalDefaults = {
+  buttons: 'ok',
+  cancelText: 'Cancel',
+  cancelValue: false,
+  keepOpen: false,
+  loading: false,
+  okText: 'OK',
+  okValue: true,
+  onCancel: () => {},
+  onClose: () => {},
+  onOK: () => {},
+  permanent: false,
+  title: null,
+  valid: true,
+  width: '650px'
+}
+
+import ModalError from './Error'
 
 export default {
-  name: 'x5-M-Component',
-  props: {
-    buttons: { type: String, default: 'OK' },
-    cancelText: { type: String, default: 'Cancel' },
-    cancelValue: { default: false },
-    keepOpen: { type: Boolean, default: false },
-    loading: { type: Boolean, default: false },
-    name: { type: String, required: true },
-    okText: { type: String, default: 'OK' },
-    okValue: { default: true },
-    permanent: { type: Boolean, default: false },
-    title: { type: String, default: null },
-    valid: { type: Boolean, default: true },
-    width: { type: String, default: '650px' }
-  },
+  name: 'x5-m-modal',
+  components: { ModalError },
+  props: { modal: { type: Object, required: true } },
   data: () => ({
-    attention: false
+    attention: false,
+    componentOptions: {},
+    modalComponent: null
   }),
   computed: {
-    modal: vm => vm.$store.getters['x5/m/allOpen'].find(e => e.name === vm.name),
-    options: vm => (vm.modal ? { ...vm.$props, ...vm.modal.options } : {}),
+    options: vm => ({ ...modalDefaults, ...vm.componentOptions, ...vm.modal.options }),
     _cancelText: vm =>
       vm.options.buttons === 'Cancel' && vm.options.cancelText === 'Cancel' ? 'Close' : vm.options.cancelText,
-    showCancel: vm => vm.options.buttons.includes('Cancel'),
-    showOK: vm => vm.options.buttons.includes('OK'),
-    isActive: vm => vm.$store.getters['x5/m/active'] === vm.name
+    showCancel: vm => vm.options.buttons.toLowerCase().includes('cancel'),
+    showOK: vm => vm.options.buttons.toLowerCase().includes('ok'),
+    isActive: vm => vm.$store.getters['x5/m/active'] === vm.modal.name
   },
   methods: {
+    setOptions(options) {
+      this.componentOptions = options
+    },
+    editOptions(options) {
+      this.componentOptions = { ...this.componentOptions, ...options }
+    },
+    setLoading(val) {
+      if (val) this.$store.dispatch('x5/m/loading', this.modal.name)
+      else this.$store.dispatch('x5/m/loaded', this.modal.name)
+    },
     close(val) {
+      this.options.onClose(val)
       this.$x5.closeModal(this.name, val)
     },
     cancel() {
-      this.$emit('cancel')
-      if (!this.options.keepOpen) this.close(this.options.cancelValue)
+      this.options.onCancel(this.cancelValue)
+      if (!this.options.keepOpen) {
+        this.close(this.options.cancelValue)
+      }
+    },
+    ok() {
+      this.options.onOK(this.modal.okValue)
+      if (!this.options.keepOpen) this.close(this.options.okValue)
     },
     denyClose() {
       this.attention = true
       setTimeout(() => (this.attention = false), 150)
     },
     onOverlay() {
-      if (this.isActive && !this.options.loading && !this.options.permanent) this.cancel()
+      if (this.isActive && !this.options.permanent) this.cancel()
       else this.denyClose()
     },
-    ok() {
-      this.$emit('ok')
-      if (!this.options.keepOpen) this.close(this.options.okValue)
+    loadComponent() {
+      const timeout = new Promise((resolve, reject) =>
+        setTimeout(() => reject('Modal content took too long to load.'), 5000)
+      )
+      const getComponent = new Promise(resolve => {
+        if (typeof this.modal.component === 'object') resolve(this.modal.component)
+        else this.modal.component().then(c => resolve(c.default))
+      })
+      Promise.race([timeout, getComponent])
+        .then(c => (this.modalComponent = c))
+        .catch(() => (this.modalComponent = ModalError))
+        .finally(() => this.$store.dispatch('x5/m/loaded', `${this.modal.name}-component`))
     }
-  },
-  mounted() {
-    if (this.options.buttons && !buttonsOptions.includes(this.options.buttons))
-      throw new Error(`Invalid buttons property '${buttonsOptions}' used in x5Modal Plugin.`)
-  },
-  beforeDestroy() {
-    if (this.isActive) this.$x5.closeModal(this.name)
   },
   watch: {
     $route() {
       if (!this.options.keepOpen) this.$x5.closeModal(this.name)
     }
+  },
+  mounted() {
+    this.loadComponent()
+  },
+  beforeDestroy() {
+    this.setLoading(false)
+    if (this.isActive) this.$x5.closeModal(this.modal.name)
   }
 }
 </script>

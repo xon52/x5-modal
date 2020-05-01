@@ -1,5 +1,6 @@
 import Component from './Component.vue'
-import Modal from './Modal.vue'
+// TODO: Depreciated v0.3.0 2020/05/01
+import LegacyModal from './LegacyModal.vue'
 import PluginStore from './store'
 import './scss/index.scss'
 
@@ -14,7 +15,7 @@ export default function(Vue, store) {
   if (!store) throw new Error('A Vuex store is required by the x5Modal plugin')
   store.registerModule('x5/m', PluginStore)
   // Register component
-  Vue.component('x5Modal', Modal)
+  Vue.component('x5Modal', LegacyModal)
   Vue.component('x5Modals', Component)
 
   // Register Modal
@@ -24,27 +25,32 @@ export default function(Vue, store) {
     store.dispatch('x5/m/register', { name, component })
   }
   // Open Modal
-  const openModal = (name, options = {}, data = null) => {
+  const openModal = (name, data = null, options = {}) => {
     const isRegistered = !!store.getters['x5/m/allRegistered'][name]
     if (!isRegistered) return warning(`Modal '${name}' not registered.`)
+    // TODO: Legacy guard v0.3.0 2020/05/01
+    if (data && (data.title || data.buttons))
+      warning(`⚠️ x5-modal Plugin Warning :: v0.3.0 has swapped the order of data and options in the $x5.openModal() command. Please see
+      <a href="https://github.com/xon52/x5-modal/blob/master/MIGRATION.md">here</a> for update instructions.`)
     const isOpen = !!store.getters['x5/m/allOpen'].find((e) => e.name === name)
     // FIXME: returning null throws an error if there is a .then() chained to the openModal() call
     if (isOpen) return warning(`Modal '${name}' already open.`)
     let resolve
     const promise = new Promise((res) => (resolve = res))
-    store.dispatch('x5/m/open', { name, options, data, resolve })
+    store.dispatch('x5/m/open', { name, data, options, resolve })
     return promise
   }
   // Edit Modal
-  const editModal = (name, options = {}, data = null) => {
+  const editModal = (name, data = null, options = {}) => {
     const isOpen = !!store.getters['x5/m/allOpen'].find((e) => e.name === name)
     if (!isOpen) return warning(`Modal '${name}' cannot be edited until it is open.`)
-    store.dispatch('x5/m/edit', { name, options, data })
+    store.dispatch('x5/m/edit', { name, data, options })
   }
   // Close Modal
   const closeModal = (name, result) => {
     if (!name) name = store.getters['x5/m/active']
-    let modal = store.getters['x5/m/allOpen'].find((e) => e.name === name)
+    if (!name) return
+    const modal = store.getters['x5/m/allOpen'].find((e) => e.name === name)
     if (!modal) return warning(`Modal '${name}' not found.`)
     modal.resolve(result)
     store.dispatch('x5/m/close', name)

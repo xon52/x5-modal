@@ -2,8 +2,8 @@
   display: inline-block;
   width: 150px;
   height: 150px;
-  border: 20px solid #fff4;
+  border: 20px solid rgba(255, 255, 255, 0.25);
   border-radius: 50%;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
   animation: spin 1s ease-in-out infinite;
 }
