@@ -6,7 +6,7 @@
 export default {
   name: 'DoubleModal',
   created() {
-    this.$emit('setOptions', { title: 'Double Modal', buttons: 'cancel' })
+    this.$emit('setModal', { title: 'Double Modal', buttons: 'cancel' })
   },
   mounted() {
     this.$x5.registerModal('double2', () => import('./DoubleModal2'))

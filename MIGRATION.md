@@ -16,12 +16,12 @@ Now you can register any component via `$x5.registerModal(name, component)` as a
 
 A name is no longer required in the modal component itself.
 
-To still allow for you to still define modal options from within the modal component, you can use a setOptions `$emit` on the `created()` hook. You can also use this `$emit` if you want to edit an open modal's options.
+To still allow for you to still define modal options from within the modal component, you can use a setModal `$emit` on the `created()` hook. You can also use this `$emit` if you want to edit an open modal's options.
 
 ```js
 // From within the component you want to use as a modal
 created() {
-  this.$emit('setOptions', {
+  this.$emit('setModal', {
     buttons: 'cancel',
     permanent: true,
     title: 'Example'
@@ -72,18 +72,12 @@ Using the modal element before, you could attach to the events `@ok` & `@cancel`
     submit() { /* ... */ }
   },
   created() {
-    this.$emit('setOptions', {
+    this.$emit('setModal', {
       onOK: this.submit,
       onCancel: this.close,
     })
   }
 ```
-
-Originally each modal had its own loading overlay. This has been removed in favour of a single overlay for all components.
-
-Where before you could bind to the `:loading` option of a `<x5-modal>` element, now you can either make your own loading function for your component, or use the plugin's loading component via the command `$x5.loadModal(true)`. As expected `$x5.loadModal(false)` turns it off.
-
-:warning: If you turn it on, you must turn it off when you are finished!
 
 <br>
 

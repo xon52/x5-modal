@@ -6,7 +6,7 @@
 export default {
   name: 'DoubleModal2',
   created() {
-    this.$emit('setOptions', { title: 'Double Modal the Second', buttons: 'cancel' })
+    this.$emit('setModal', { title: 'Double Modal the Second', buttons: 'cancel' })
   }
 }
 </script>

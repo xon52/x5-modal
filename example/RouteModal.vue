@@ -19,11 +19,11 @@ export default {
   name: 'RouteModal',
   methods: {
     keepOpen(val) {
-      this.$emit('editOptions', { keepOpen: val })
+      this.$emit('editModal', { keepOpen: val })
     }
   },
   created() {
-    this.$emit('setOptions', {
+    this.$emit('setModal', {
       title: 'Route Modal',
       buttons: '',
       onCancel: () => this.$x5.closeModal()

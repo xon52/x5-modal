@@ -17,7 +17,7 @@
       </li>
       <li>To enable the OK (Send) button the <code>valid</code> attribute needs to be TRUE (check the checkbox)</li>
       <li>
-        You can also change options on the fly using <code>$emit('editOptions', {options})</code>
+        You can also change options on the fly using <code>$emit('editModal', {options})</code>
         <a @click="edit('title', 'Bathroom Sink')">like so</a>
       </li>
     </ul>
@@ -42,11 +42,11 @@ export default {
     edit(key, val) {
       const options = {}
       options[key] = val
-      this.$emit('editOptions', options)
+      this.$emit('editModal', options)
     }
   },
   created() {
-    this.$emit('setOptions', {
+    this.$emit('setModal', {
       valid: false,
       buttons: 'OKCancel',
       cancelText: "Don't Send",

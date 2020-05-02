@@ -113,7 +113,7 @@ export default {
 
 ## Modal Component and Instance Options
 
-Options can be set within your component using `$emit('setOptions',{})`, and/or when the modal is opened using the 3rd function parameted.
+Options can be set within your component using `$emit('setModal',{})`, and/or when the modal is opened using the 3rd function parameted.
 
 ```html
 <!-- First method: ExampleModal.vue -->
@@ -124,7 +124,7 @@ Options can be set within your component using `$emit('setOptions',{})`, and/or 
 <script>
   export default {
     created() {
-      this.$emit('setOptions', { title: 'Example Title' })
+      this.$emit('setModal', { title: 'Example Title' })
     },
   }
 </script>
@@ -211,11 +211,11 @@ Note: You can also change the data prop using `$x5.editModal(modalName, data, op
   export default {
     methods: {
       changeTitle() {
-        this.$emit('editOptions', { title: 'Edited Title' })
+        this.$emit('editModal', { title: 'Edited Title' })
       }
     }
     created() {
-      this.$emit('setOptions', { title: 'Example Title' })
+      this.$emit('setModal', { title: 'Example Title' })
     },
   }
 </script>
@@ -235,12 +235,9 @@ export default {
 <br>
 
 ---
+## Change Log
 
-## Todo
-
-- Find a solution to stopping background scrolling when modal is open
-  - I have tried a multitude of CSS solutions and always find a trade off I decide is too costly
-  - I think the [Body scroll lock](https://github.com/willmcpo/body-scroll-lock) package is on the right track with JS - but it's too big for this lightweight project
+Please read [CHANGELOG.md](./CHANGELOG.md) for changes from v0.4.0 onwards.
 
 ## Contributing
 

@@ -18,8 +18,8 @@
         <component
           :is="modalComponent"
           :data="modal.data"
-          @setOptions="setOptions"
-          @editOptions="editOptions"
+          @setModal="setModal"
+          @editModal="editModal"
           @setLoading="setLoading"
         />
       </div>
@@ -38,7 +38,7 @@
 
 <script>
 // const buttonsOptions = ['ok', 'cancel', 'okcancel']
-const modalDefaults = {
+const defaultOptions = {
   buttons: 'ok',
   cancelText: 'Cancel',
   cancelValue: false,
@@ -63,11 +63,12 @@ export default {
   props: { modal: { type: Object, required: true } },
   data: () => ({
     attention: false,
-    componentOptions: {},
+    setOptions: {},
+    editOptions: {},
     modalComponent: null
   }),
   computed: {
-    options: vm => ({ ...modalDefaults, ...vm.componentOptions, ...vm.modal.options }),
+    options: vm => ({ ...vm.setOptions, ...vm.modal.options, ...vm.editOptions }),
     _cancelText: vm =>
       vm.options.buttons === 'Cancel' && vm.options.cancelText === 'Cancel' ? 'Close' : vm.options.cancelText,
     showCancel: vm => vm.options.buttons.toLowerCase().includes('cancel'),
@@ -75,11 +76,11 @@ export default {
     isActive: vm => vm.$store.getters['x5/m/active'] === vm.modal.name
   },
   methods: {
-    setOptions(options) {
-      this.componentOptions = options
+    setModal(options) {
+      this.setOptions = { ...defaultOptions, ...options }
     },
-    editOptions(options) {
-      this.componentOptions = { ...this.componentOptions, ...options }
+    editModal(options) {
+      this.editOptions = { ...this.editOptions, ...options }
     },
     setLoading(val) {
       if (val) this.$store.dispatch('x5/m/loading', this.modal.name)

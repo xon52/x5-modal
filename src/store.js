@@ -13,13 +13,13 @@ const store = {
   },
   mutations: {
     OPEN: (state, { name, options, data, resolve }) => {
-      let component = state.registered[name]
+      const component = state.registered[name]
       state.open.push({ name, options, data, resolve, component })
     },
-    EDIT: (state, { name, options, data }) => {
-      let i = state.open.findIndex((e) => e.name === name)
-      let _options = { ...state.open[i].options, ...options }
-      let _data = data ? data : state.open[i].data
+    EDIT: (state, { name, data, options }) => {
+      const i = state.open.findIndex((e) => e.name === name)
+      const _options = { ...state.open[i].options, ...options }
+      const _data = data ? data : state.open[i].data
       state.open.splice(i, 1, { ...state.open[i], options: _options, data: _data })
     },
     LOADED: (state, payload) => (state.loading = state.loading.filter((e) => e !== payload)),

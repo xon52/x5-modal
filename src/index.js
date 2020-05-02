@@ -65,5 +65,12 @@ export default function(Vue, store) {
       })
 
   // Vue commands
-  Vue.prototype.$x5 = { ...Vue.prototype.$x5, registerModal, openModal, editModal, closeModal, closeModals }
+  Vue.prototype.$x5 = {
+    ...Vue.prototype.$x5,
+    registerModal,
+    openModal,
+    editModal,
+    closeModal,
+    closeModals,
+  }
 }

@@ -18,7 +18,7 @@
 export default {
   name: 'NoButtonsModal',
   created() {
-    this.$emit('setOptions', { permanent: true, title: 'No Buttons Modal', buttons: '' })
+    this.$emit('setModal', { permanent: true, title: 'No Buttons Modal', buttons: '' })
   }
 }
 </script>

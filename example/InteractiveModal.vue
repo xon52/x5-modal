@@ -51,7 +51,7 @@ export default {
     }
   },
   created() {
-    this.$emit('setOptions', {
+    this.$emit('setModal', {
       buttons: 'OKCancel',
       title: 'Interactive Modal',
       onOK: this.submit,

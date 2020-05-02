@@ -1,13 +1,13 @@
 {
   "name": "x5-modal",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": false,
   "description": "A lightweight modal plugin for Vue",
   "author": "Keagan Chisnall",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "dryrun": "rimraf dist && webpack && npx publish --dry-run",
+    "dryrun": "rimraf dist && webpack",
     "deploy": "rimraf dist && webpack && npx publish"
   },
   "main": "dist",
