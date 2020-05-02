@@ -10,13 +10,13 @@ The major change objective of v0.4 was to support async components showing a loa
 
 ## New way to define a modal component
 
-The biggest change has been to remove the <x5-modal> element (which was used to define props within your modal component).
+The biggest change has been to remove the `<x5-modal>` element (which was used to define props within your modal component).
 
 Now you can register any component via `$x5.registerModal(name, component)` as a modal as long as you give it a unique name.
 
 A name is no longer required in the modal component itself.
 
-To still allow for you to still define modal options from within the component you want to register (replacing the <x5-modal> element options system), you can use a special setOptions `$emit` on the `created()` hook:
+To still allow for you to still define modal options from within the modal component, you can use a setOptions `$emit` on the `created()` hook. You can also use this `$emit` if you want to edit an open modal's options.
 
 ```js
 // From within the component you want to use as a modal
