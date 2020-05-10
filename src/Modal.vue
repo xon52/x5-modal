@@ -86,18 +86,16 @@ export default {
       if (val) this.$store.dispatch('x5/m/loading', this.modal.name)
       else this.$store.dispatch('x5/m/loaded', this.modal.name)
     },
-    close(val) {
-      this.options.onClose(val)
+    async close(val) {
+      await this.options.onClose(val)
       this.$x5.closeModal(this.name, val)
     },
-    cancel() {
-      this.options.onCancel(this.cancelValue)
-      if (!this.options.keepOpen) {
-        this.close(this.options.cancelValue)
-      }
+    async cancel() {
+      await this.options.onCancel(this.cancelValue)
+      if (!this.options.keepOpen) this.close(this.options.cancelValue)
     },
-    ok() {
-      this.options.onOK(this.modal.okValue)
+    async ok() {
+      await this.options.onOK(this.modal.okValue)
       if (!this.options.keepOpen) this.close(this.options.okValue)
     },
     denyClose() {
