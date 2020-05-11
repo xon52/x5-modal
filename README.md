@@ -148,6 +148,7 @@ export default {
 | cancelValue |   Any    |  `false`   | Promise return value on cancel                                    |
 | keepOpen    | Boolean  |  `false`   | Stops the modal closing on OK or Cancel (requires manual closing) |
 | name        |  String  |     --     | **Required** Unique name for this modal                           |
+| noPadding   | Boolean  |     --     | Sets content padding to zero                                      |
 | okText      |  String  |     OK     | OK button label                                                   |
 | okValue     |   Any    |   `true`   | Promise return value on OK                                        |
 | onCancel    | Function | `() => {}` | Function to be called when the cancel button is pressed           |
@@ -165,6 +166,16 @@ export default {
 - `$x5.closeModal()` [without a name] will close the active modal
 - `$x5.closeModals()` will close all open modals without the `keepOpen` flag
 - If using **vue-router**, changing the route will close each open modal without the `keepOpen` flag
+
+### Included Dialog Modals
+
+To help with style consistency, `alert`, `confirm`, and `prompt` dialog modals have been included.
+
+_They are very simple modals and are not meant to enhance the browser's in-built functions - just make similarly styled modal versions of them._
+
+- `Alert` dialog called via `$x5.alert('Text', 'Title')`.
+- `Confirm` dialog called via `$x5.confirm('Text', 'Title')` and returns `true` (Yes) or `false` (No).
+- `Prompt` dialog called via `$x5.prompt('Text', 'Title')` and returns the value entered (OK) or `false` (Cancel).
 
 ### Data Prop
 
@@ -235,6 +246,7 @@ export default {
 <br>
 
 ---
+
 ## Change Log
 
 Please read [CHANGELOG.md](./CHANGELOG.md) for changes from v0.4.0 onwards.

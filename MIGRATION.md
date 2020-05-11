@@ -1,4 +1,4 @@
-# Migration from x5-modal v0.2/0.3 to v0.4
+# Migration from x5-modal v0.2/0.3 to v0.4+
 
 The major change objective of v0.4 was to support async components showing a loading spinner while they are fetched from a server if necessary. It was realised early on that this was not possible using the previous way of handling modals. While conducting the changes required to support this, a few other improvements were noticed and it was decided that if we're doing a breaking change, we may as well make the most of it.
 

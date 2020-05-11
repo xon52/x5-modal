@@ -1,7 +1,8 @@
 <template>
   <div class="wrapper">
-    <img class="logo" src="./img/logo.svg" width="300" />
+    <img src="./img/logo.svg" width="300" />
     <h1 class="title">x5-Modal Example</h1>
+    <p><a href="https://github.com/xon52/x5-modal" target="_blank">https://github.com/xon52/x5-modal</a></p>
     <button class="button" @click="$x5.openModal('plain')">Plain</button>
     <button class="button" @click="$x5.openModal('noButtons')">No Buttons</button>
     <button class="button" @click="$x5.openModal('double')">Double</button>
@@ -22,6 +23,12 @@
     <p>If you use vue-router and change the route, it automatically closes any open modals.</p>
     <p>If you'd like to disable this function, use the <code>keepOpen</code> option.</p>
     <router-view></router-view>
+    <hr />
+    <!-- Extra Modals -->
+    <h1 class="title">Extra Provided Modals</h1>
+    <button class="button" @click="alert">Alert</button>
+    <button class="button" @click="confirm">Confirm</button>
+    <button class="button" @click="prompt">Prompt</button>
     <!-- Modals -->
     <x5-modals></x5-modals>
   </div>
@@ -42,6 +49,19 @@ export default {
       this.$x5.openModal('interactive', this.dataIn).then(val => {
         this.dataOut = val
       })
+    },
+    alert() {
+      this.$x5.alert('This is some alert text.', 'Alert Title')
+    },
+    confirm() {
+      this.$x5
+        .confirm('Are you sure you like this confirm box?', 'Confirm Box Title')
+        .then(res => this.$x5.alert(`That returned ${res}`, 'Confirm Response'))
+    },
+    prompt() {
+      this.$x5
+        .prompt("What's your rating of this prompt?", 'Prompt Title')
+        .then(res => this.$x5.alert(`That returned ${res}`, 'Prompt Response'))
     }
   },
   created() {
@@ -67,6 +87,7 @@ export default {
 <style>
 .wrapper {
   text-align: center;
+  margin-bottom: 100px;
 }
 .boxed {
   padding: 10px;

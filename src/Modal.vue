@@ -14,7 +14,7 @@
         </div>
       </transition>
       <!-- Content -->
-      <div class="x5-m-content">
+      <div class="x5-m-content" :style="options.noPadding ? 'padding:0;' : ''">
         <component
           :is="modalComponent"
           :data="modal.data"
@@ -26,10 +26,10 @@
       <!-- Footer -->
       <transition name="x5-m-expand">
         <div v-if="options.buttons" class="x5-m-footer">
-          <button v-if="showCancel" @click="cancel">{{ _cancelText }}</button>
           <button v-if="showOK" class="x5-m-ok" :disabled="!options.valid" @click="ok">
             {{ options.okText }}
           </button>
+          <button v-if="showCancel" @click="cancel">{{ _cancelText }}</button>
         </div>
       </transition>
     </div>
@@ -44,6 +44,7 @@ const defaultOptions = {
   cancelValue: false,
   keepOpen: false,
   loading: false,
+  noPadding: false,
   okText: 'OK',
   okValue: true,
   onCancel: () => {},
@@ -68,7 +69,7 @@ export default {
     modalComponent: null
   }),
   computed: {
-    options: vm => ({ ...vm.setOptions, ...vm.modal.options, ...vm.editOptions }),
+    options: vm => ({ ...defaultOptions, ...vm.setOptions, ...vm.modal.options, ...vm.editOptions }),
     _cancelText: vm =>
       vm.options.buttons === 'Cancel' && vm.options.cancelText === 'Cancel' ? 'Close' : vm.options.cancelText,
     showCancel: vm => vm.options.buttons.toLowerCase().includes('cancel'),
@@ -77,7 +78,7 @@ export default {
   },
   methods: {
     setModal(options) {
-      this.setOptions = { ...defaultOptions, ...options }
+      this.setOptions = { ...options }
     },
     editModal(options) {
       this.editOptions = { ...this.editOptions, ...options }

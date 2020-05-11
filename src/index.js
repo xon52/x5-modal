@@ -1,4 +1,7 @@
 import Component from './Component.vue'
+import AlertModal from './extra/Alert.vue'
+import ConfirmModal from './extra/Confirm.vue'
+import PromptModal from './extra/Prompt.vue'
 // TODO: Depreciated v0.4.0 2020/05/01
 import LegacyModal from './LegacyModal.vue'
 import PluginStore from './store.js'
@@ -17,7 +20,6 @@ export default function(Vue, store) {
   // Register component
   Vue.component('x5Modal', LegacyModal)
   Vue.component('x5Modals', Component)
-
   // Register Modal
   const registerModal = (name, component) => {
     const isRegistered = !!store.getters['x5/m/allRegistered'][name]
@@ -63,10 +65,20 @@ export default function(Vue, store) {
         warning(`Modal '${e.name}' force closed.`)
         closeModal(e.name)
       })
+  // Extra Modals
+  registerModal('x5-alert', AlertModal)
+  const alert = (text, title) => openModal('x5-alert', text, { title })
+  registerModal('x5-confirm', ConfirmModal)
+  const confirm = (text, title) => openModal('x5-confirm', text, { title })
+  registerModal('x5-prompt', PromptModal)
+  const prompt = (text, title) => openModal('x5-prompt', text, { title })
 
   // Vue commands
   Vue.prototype.$x5 = {
     ...Vue.prototype.$x5,
+    alert,
+    confirm,
+    prompt,
     registerModal,
     openModal,
     editModal,

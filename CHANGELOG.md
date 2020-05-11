@@ -2,7 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.4.1 (Latest)] - 2020-05-01
+## [0.5.0] - 2020-05-11
+
+### Added
+
+- `noPadding` option to remove padding of modal content container.
+- `Alert` dialog called via `$x5.alert('Text', 'Title')`.
+- `Confirm` dialog called via `$x5.confirm('Text', 'Title')` and returns `true` (Yes) or `false` (No).
+- `Prompt` dialog called via `$x5.prompt('Text', 'Title')` and returns the value entered (OK) or `false` (Cancel).
+
+### Changed
+
+- Swapped order of `OK` and `Cancel` buttons. `OK` is now first.
+
+### Fixed
+
+- If a modal did not set any initial options (`$emit('setModal', {...options})`)), no defaults would be loaded.
+
+---
+
+## [0.4.2] - 2020-05-11
+
+### Fixed
+
+- Provided `onOK`, `onCancel`, and `onClose` methods were not waited for before the modal closed. `ok()`, `cancel()`, and `close()` are async so can wait for any provided async methods before they run.
+
+---
+
+## [0.4.1] - 2020-05-01
 
 ### Fixed
 
