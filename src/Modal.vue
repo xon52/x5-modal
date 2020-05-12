@@ -89,7 +89,7 @@ export default {
     },
     async close(val) {
       await this.options.onClose(val)
-      this.$x5.closeModal(this.name, val)
+      this.$x5.closeModal(this.modal.name, val)
     },
     async cancel() {
       await this.options.onCancel(this.cancelValue)
@@ -123,7 +123,7 @@ export default {
   },
   watch: {
     $route() {
-      if (!this.options.keepOpen) this.$x5.closeModal(this.name)
+      if (!this.options.keepOpen) this.$x5.closeModal(this.modal.name)
     }
   },
   mounted() {
