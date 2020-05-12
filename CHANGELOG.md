@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.3] - 2020-05-12
+
+### Added
+
+- Added an interrupt ability to `onOK`, `onCancel`, and `onClose` methods. If the method used returns `false` the close process will be interrupted.
+
+---
+
+## [0.5.2] - 2020-05-12
+
+### Fixed
+
+- Modal `close()` was not closing the right modal with an edge case of a dialog appearing during the `close()` call.
+
+---
+
+## [0.5.1] - 2020-05-12
+
+### Changed
+
+- `Confirm` dialog input given a border to be more visable.
+
+---
+
 ## [0.5.0] - 2020-05-11
 
 ### Added

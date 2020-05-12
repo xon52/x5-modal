@@ -151,13 +151,15 @@ export default {
 | noPadding   | Boolean  |     --     | Sets content padding to zero                                      |
 | okText      |  String  |     OK     | OK button label                                                   |
 | okValue     |   Any    |   `true`   | Promise return value on OK                                        |
-| onCancel    | Function | `() => {}` | Function to be called when the cancel button is pressed           |
-| onClose     | Function | `() => {}` | Function to be called when the modal is closed                    |
-| onOK        | Function | `() => {}` | Function to be called when the ok button is pressed               |
+| onCancel    | Function | `() => {}` | Function to be called when the cancel button is pressed \*        |
+| onClose     | Function | `() => {}` | Function to be called when the modal is closed \*                 |
+| onOK        | Function | `() => {}` | Function to be called when the ok button is pressed \*            |
 | permanent   | Boolean  |  `false`   | Only allow closing the window via provided buttons                |
 | title       |  String  |    null    | Modal header title (leave empty for no header)                    |
 | valid       | Boolean  |   `true`   | OK (submit button) is enabled                                     |
 | width       |  Number  |   `500`    | Maximum window width                                              |
+
+_\* If these methods return `false` it will interrupt the closing process. This is helpful when there are async functions that may have a result that is relevant to the open modal._
 
 ## Additional Features / Notes
 

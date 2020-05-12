@@ -88,16 +88,16 @@ export default {
       else this.$store.dispatch('x5/m/loaded', this.modal.name)
     },
     async close(val) {
-      await this.options.onClose(val)
-      this.$x5.closeModal(this.modal.name, val)
+      const proceed = await this.options.onClose(val)
+      if (proceed !== false) this.$x5.closeModal(this.modal.name, val)
     },
     async cancel() {
-      await this.options.onCancel(this.cancelValue)
-      if (!this.options.keepOpen) this.close(this.options.cancelValue)
+      const proceed = await this.options.onCancel(this.cancelValue)
+      if (proceed !== false && !this.options.keepOpen) this.close(this.options.cancelValue)
     },
     async ok() {
-      await this.options.onOK(this.modal.okValue)
-      if (!this.options.keepOpen) this.close(this.options.okValue)
+      const proceed = await this.options.onOK(this.modal.okValue)
+      if (proceed !== false && !this.options.keepOpen) this.close(this.options.okValue)
     },
     denyClose() {
       this.attention = true
