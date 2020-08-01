@@ -1,2 +1,2 @@
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d21ecb9"],{d6a2:function(e,n,t){"use strict";t.r(n);var l=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("button",{on:{click:function(n){return e.$x5.openModal("full")}}},[e._v("Open Full Modal")])},o=[],u={name:"DoubleModal2",created:function(){this.$emit("setModal",{title:"Double Modal the Second",buttons:"cancel"})}},c=u,a=t("2877"),d=Object(a["a"])(c,l,o,!1,null,null,null);n["default"]=d.exports}}]);
-//# sourceMappingURL=chunk-2d21ecb9.bb2d6500.js.map
+//# sourceMappingURL=chunk-2d21ecb9.aaa49cf6.js.map

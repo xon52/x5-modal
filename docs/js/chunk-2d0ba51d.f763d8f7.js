@@ -1,2 +1,2 @@
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0ba51d"],{3769:function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement;n._self._c;return n._m(0)},l=[function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",[t("h1",[n._v("Plain Modal")]),t("p",[n._v("This has no settings whatsoever!")])])}],s={name:"PlainModal"},i=s,r=t("2877"),c=Object(r["a"])(i,a,l,!1,null,null,null);e["default"]=c.exports}}]);
-//# sourceMappingURL=chunk-2d0ba51d.616d41d0.js.map
+//# sourceMappingURL=chunk-2d0ba51d.f763d8f7.js.map
